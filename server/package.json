@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hapi/hoek": "^9.0.4",
+    "@hapi/joi": "^17.1.1",
+    "@hapi/topo": "^5.0.0",
     "bcrypt": "^5.0.0",
     "config": "^3.3.1",
     "express": "^4.17.1",

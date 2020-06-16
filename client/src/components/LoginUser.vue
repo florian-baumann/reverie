@@ -19,6 +19,17 @@
           outlined ></v-text-field>
       </v-card-text>
 
+      <v-btn
+          small
+          outlined
+          color="#F3F348"
+          class="ma-2"
+          to="/auth"
+          
+        >
+          Login
+        </v-btn>
+
       <!-- <div class="" >not registered? <a href="xxx">Register</a></div> -->
 
 

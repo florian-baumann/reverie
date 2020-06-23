@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <template v-if="!isLoading">
-      <Events v-for="events in events" :key="events.id" :idea="events" />
+      <EventCard v-for="events in events" :key="events.id" :idea="events" />
     </template>
     <p v-else>
       Loading events
@@ -15,24 +15,20 @@
 <script>
 import axios from 'axios' 
 import Ideapreview from "../components/idea-preview.vue"
-import Events from "../components/EventCard.vue"
+import EventCard from "../components/EventCard.vue"
 
 export default {
   name: "Home",
   components: {
-    Ideapreview,
-    Events
+    EventCard,
+    Ideapreview, 
   },
-  data() {
-    return{
-      isLoading: true,
-      events:[]
-    }
+  data () {
+    return { events: 'Loading events...' }
   },
   created () {
     axios.get('//localhost:3000/dashboard').then(({ data }) => {
       this.events = data.events.events
-      this.isLoading = false
     })
   }
 }

@@ -27,7 +27,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link to="">
+        <v-list-item link to="/">
           <v-list-item-action>
             <v-icon color="#F3F348">mdi-logout</v-icon>
           </v-list-item-action>
@@ -73,9 +73,10 @@
       <!-- ------------------- -->
       <v-spacer></v-spacer>
       <!-- ------------------- -->
+        
+      <!--<span class="nav-welcome">Hello, {{ user.name }}.</span>
+      <button type="button" class="logoutButton" @click="logout">Log out</button>-->
 
-     <!-- <template v-if="!this.$store.state.user">-->
-          
         <v-btn
           small
           outlined
@@ -86,10 +87,6 @@
         >
           Login
         </v-btn>
-
-         <router-link to="/auth" @click.native="isNew(false)">
-          Login
-        </router-link>
 
         <v-btn
           small
@@ -122,6 +119,7 @@
 
 
     </v-app-bar>
+
     <v-content>
       <router-view></router-view> <!-- Content -->
     </v-content> 
@@ -129,19 +127,29 @@
 </template>
 
 <script>
-
-
 export default {
   name: 'App',
   components: {
   },
-
-  data: () => ({
-    drawer: null,
-  }),
+  data() {
+    return {
+      drawer: null,
+    } 
+  },
   methods: {
-    isNew (isNewUser) { this.$store.dispatch('isNewUser', !isNewUser) }
-  }
+    isNew (isNewUser) {
+      this.$store.dispatch('isNewUser', !isNewUser)
+      },
+    logout () {
+      this.$store.dispatch('logout')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    }
+  },
+
 };
 </script>
 

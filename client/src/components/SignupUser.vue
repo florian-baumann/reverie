@@ -13,7 +13,6 @@
             placeholder="maxmustermann"
             outlined ></v-text-field>
         </v-card-text>
-        {{this.name}}
 
         <v-card-text>
           <v-text-field
@@ -22,7 +21,6 @@
             placeholder="xxx@xxx"
             outlined ></v-text-field>
         </v-card-text>
-        {{this.email}}
 
         <v-card-text>
           <v-text-field
@@ -31,7 +29,8 @@
             placeholder="xxx"
             outlined ></v-text-field>
         </v-card-text>
-        {{this.password}}
+        <p v-if="status === 400">Please enter different info.</p>
+
 
         <v-card-actions>
           <v-btn
@@ -41,7 +40,7 @@
             class="ma-2 justify-center"
             to="/auth"
            @click="register"
-          > <!--@click.native="isNew(false)"-->
+          >
             Register
           </v-btn>
         </v-card-actions>
@@ -53,11 +52,13 @@
 
 <script>
 export default {
+  name: "SignupUser",
   data() {
     return {
       name: "",
       email: "",
       password: "",
+      status: null
     }
   },
   methods: {

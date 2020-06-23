@@ -18,6 +18,7 @@
           placeholder="xxx"
           outlined ></v-text-field>
       </v-card-text>
+      <p v-if="status === 400">Invalid login info.</p>
 
       <v-btn
           small
@@ -25,14 +26,10 @@
           color="#F3F348"
           class="ma-2"
           to="/auth"
-          
+          @click="login"
         >
           Login
-        </v-btn>
-
-      <!-- <div class="" >not registered? <a href="xxx">Register</a></div> -->
-
-
+      </v-btn>
     </v-card>
 
   </div>
@@ -40,10 +37,23 @@
 
 <script>
 export default {
-  data() {
+  name: 'LoginUser',
+  data () {
     return {
-      username: "",
-      password: "",
+      email: '',
+      password: '',
+      status: null
+    }
+  },
+  methods: {
+    login () {
+      this.$store
+        .dispatch('login', {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => { this.$router.push({ name: 'Home' }) })
+        .catch(err => { this.status = err.response.status })
     }
   }
 }

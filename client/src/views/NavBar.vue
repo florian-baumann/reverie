@@ -73,10 +73,12 @@
       <!-- ------------------- -->
       <v-spacer></v-spacer>
       <!-- ------------------- -->
-        
-      <!--<span class="nav-welcome">Hello, {{ user.name }}.</span>
-      <button type="button" class="logoutButton" @click="logout">Log out</button>-->
-
+      <template v-if="user">
+        <span class="nav-welcome">Hello, {{ user.name }}.</span>  
+        <button type="button" class="logoutButton" @click="logout">Log out</button>
+      </template>
+      
+      <template v-else>
         <v-btn
           small
           outlined
@@ -96,7 +98,7 @@
         >
           <div id="signup_btn">Sign Up</div>
         </v-btn>
-      <!--</template>-->
+      </template>
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" color="#F3F348"></v-app-bar-nav-icon>
 

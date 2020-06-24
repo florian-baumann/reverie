@@ -43,6 +43,11 @@
           >
             Register
           </v-btn>
+           <a
+      v-show="!isNewUser"
+      class="auth-link"
+      @click="toggleComponent"
+    >Already have an account? Login.</a>
         </v-card-actions>
 
       </form>
@@ -75,7 +80,15 @@ export default {
         .catch(err => {
           this.errors = err.response.data.errors
         })
+    },
+    toggleComponent () {
+      this.$store.dispatch('isNewUser', !this.isNewUser)
     }
+  },
+  computed: {
+    isNewUser () {
+      return this.$store.state.isNewUser
+    },
   }
 }
 </script>

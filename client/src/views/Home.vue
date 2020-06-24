@@ -1,27 +1,25 @@
 <template>
   <div class="wrapper">
-    <template v-if="!isLoading">
-      <EventCard v-for="events in events" :key="events.id" :idea="events" />
+    <template v-if="events !== 'Loading events...'">
+      <EventCard v-for="event in events" :key="event.id" :event="event" />
     </template>
-    <p v-else>
-      Loading events
-    </p>
-    feste:
+    
+    <!--feste:
     <Ideapreview/>
-    <Ideapreview/>
+    <Ideapreview/>-->
   </div>
 </template>
 
 <script>
 import axios from 'axios' 
-import Ideapreview from "../components/idea-preview.vue"
+//import Ideapreview from "../components/idea-preview.vue"
 import EventCard from "../components/EventCard.vue"
 
 export default {
   name: "Home",
   components: {
     EventCard,
-    Ideapreview, 
+    //Ideapreview, 
   },
   data () {
     return { events: 'Loading events...' }

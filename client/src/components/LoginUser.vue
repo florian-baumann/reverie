@@ -5,7 +5,7 @@
 
       <v-card-text>
         <v-text-field
-          v-model="username"
+          v-model="email"
           label="Username/E-mail"
           placeholder="maxmustermann"
           outlined ></v-text-field>
@@ -30,6 +30,11 @@
         >
           Login
       </v-btn>
+      <a
+      v-show="isNewUser"
+      class="auth-link"
+      @click="toggleComponent"
+    >Don't have an account? Create one.</a>
     </v-card>
 
   </div>
@@ -40,6 +45,7 @@ export default {
   name: 'LoginUser',
   data () {
     return {
+      username: "",
       email: '',
       password: '',
       status: null
@@ -54,7 +60,15 @@ export default {
         })
         .then(() => { this.$router.push({ name: 'Home' }) })
         .catch(err => { this.status = err.response.status })
+    },
+    toggleComponent () {
+      this.$store.dispatch('isNewUser', !this.isNewUser)
     }
+  },
+  computed: {
+    isNewUser () {
+      return this.$store.state.isNewUser
+    },
   }
 }
 </script>

@@ -74,8 +74,18 @@
       <v-spacer></v-spacer>
       <!-- ------------------- -->
       <template v-if="user">
-        <span class="nav-welcome">Hello, {{ user.name }}.</span>  
-        <button type="button" class="logoutButton" @click="logout">Log out</button>
+        <span class="nav-welcome">Hello, {{ user.name }} </span>  
+        <v-btn
+          small
+          outlined
+          color="#F3F348"
+          class=" logoutButton ma-2"
+          to="/auth"
+          @click="logout"
+        >
+          Logout
+        </v-btn>
+
       </template>
       
       <template v-else>

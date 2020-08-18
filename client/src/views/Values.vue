@@ -47,10 +47,7 @@
 
     </div>
 </template>
-<<<<<<< HEAD:client/src/views/Values.vue
 
 <style>
 
 </style>
-=======
->>>>>>> 784687b26534bf76c6fad06ebec47af2c73e01a1:client/src/views/Rules.vue

@@ -29,6 +29,7 @@
 
         <h1>One Language</h1>
         Ideas are mostly universal, to all Humans, so we need to make them accessable to all humans. Becourse English as language of the Internet we choose English. Also its not very hard to learn. 
+        (to all ou americans: we dont want to discribe every distance with bodyparts, so use the metric system)
 
         <h1>One Species: Homosapiens</h1>
         No Religion, No Color, No xxx. We, on this planet are all HUMANS. Be friendly we dont care about your language your culture your religion. Be friendly. Grow together. Make this world a better one.
@@ -46,7 +47,10 @@
 
     </div>
 </template>
+<<<<<<< HEAD:client/src/views/Values.vue
 
 <style>
 
 </style>
+=======
+>>>>>>> 784687b26534bf76c6fad06ebec47af2c73e01a1:client/src/views/Rules.vue

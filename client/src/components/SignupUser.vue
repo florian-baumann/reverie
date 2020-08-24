@@ -8,8 +8,8 @@
 
         <v-card-text>
           <v-text-field
-            v-model="name"
-            label="name"
+            v-model="username"
+            label="username"
             placeholder="maxmustermann"
             outlined ></v-text-field>
         </v-card-text>
@@ -60,7 +60,7 @@ export default {
   name: "SignupUser",
   data() {
     return {
-      name: "",
+      username: "",
       email: "",
       password: "",
       status: null
@@ -69,8 +69,8 @@ export default {
   methods: {
     register () {
       this.$store
-        .dispatch('register', {
-          name: this.name,
+        .dispatch('register', {     //TODO: fehlt die role. server braucht role zum registrieren
+          username: this.username,
           email: this.email,
           password: this.password
         })

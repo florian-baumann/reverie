@@ -3,8 +3,6 @@
 
     <component :is="loginOrRegister" />
     
-   
-    
   </div>
 </template>
 

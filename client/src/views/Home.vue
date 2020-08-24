@@ -25,8 +25,8 @@ export default {
     return { events: 'Loading events...' }
   },
   created () {
-    axios.get('//localhost:3000/dashboard').then(({ data }) => {
-      this.events = data.events.events
+    axios.get('//localhost:8081/dashboard').then(({ data }) => {
+      this.events = data.events
     })
   }
 }

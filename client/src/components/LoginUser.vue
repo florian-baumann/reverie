@@ -5,8 +5,8 @@
 
       <v-card-text>
         <v-text-field
-          v-model="email"
-          label="Username/E-mail"
+          v-model="username"
+          label="Username"
           placeholder="maxmustermann"
           outlined ></v-text-field>
       </v-card-text>
@@ -45,8 +45,7 @@ export default {
   name: 'LoginUser',
   data () {
     return {
-      username: "",
-      email: '',
+      username: '',
       password: '',
       status: null
     }
@@ -55,7 +54,7 @@ export default {
     login () {
       this.$store
         .dispatch('login', {
-          email: this.email,
+          username: this.username,
           password: this.password
         })
         .then(() => { this.$router.push({ name: 'Home' }) })

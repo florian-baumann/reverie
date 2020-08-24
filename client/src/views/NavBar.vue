@@ -83,13 +83,13 @@
       <v-spacer></v-spacer>
       <!-- ------------------- -->
       <template v-if="user">
-        <span class="nav-welcome">Hello, {{ user.name }} </span>  
+        <span class="nav-welcome">Hello, {{ user.username }} </span>  
         <v-btn
           small
           outlined
           color="#F3F348"
           class=" logoutButton ma-2"
-          to="/auth"
+          to="/"
           @click="logout"
         >
           Logout

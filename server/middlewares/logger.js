@@ -1,5 +1,15 @@
+const fs = require('fs')
+
 module.exports = function(req, res, next) {
-    let current_datetime = new Date();
+  
+  const getActualRequestDurationInMilliseconds = start => {
+    const NS_PER_SEC = 1e9; //  convert to nanoseconds
+    const NS_TO_MS = 1e6; // convert to milliseconds
+    const diff = process.hrtime(start);
+    return (diff[0] * NS_PER_SEC + diff[1]) / NS_TO_MS;
+  };
+  
+  let current_datetime = new Date();
   let formatted_date =
     current_datetime.getFullYear() +
     "-" +
@@ -19,7 +29,7 @@ module.exports = function(req, res, next) {
   const durationInMilliseconds = getActualRequestDurationInMilliseconds(start);
   let log = `[${formatted_date}] ${method}:${url} ${status} ${durationInMilliseconds.toLocaleString()} ms`;
   console.log(log);
-  fs.appendFile("request_logs.txt", log + "\n", err => {
+  fs.appendFile("logs.txt", log + "\n", err => {
     if (err) {
       console.log(err);
     }

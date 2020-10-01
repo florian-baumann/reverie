@@ -2,10 +2,13 @@
 
 start server with nodemon: "nodemon server.js"
 
+start client: "npm run serve"
+
 start mongoDB: "sudo service mongodb start"
 status mongoDB: "service mongodb status"
 
 API:
+
     Authentication:
         POST /auth/signup
         SingnUp new User. Roles: user, moderator, admin

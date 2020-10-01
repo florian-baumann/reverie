@@ -26,5 +26,15 @@ module.exports = function(app) {
     controller.adminBoard
   );
 
-  app.get("/dashboard",[authJwt.verifyToken], controller.userDashboard);
+  app.get("/dashboard",
+    [authJwt.verifyToken],
+    controller.userDashboard
+  );
+
+  app.get("/allideas",
+    [authJwt.verifyToken],
+    controller.userAllideas
+  );
+
+
 };

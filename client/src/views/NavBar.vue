@@ -36,6 +36,15 @@
           </v-list-item-content>
         </v-list-item>
 
+        <v-list-item link to="/values">
+          <v-list-item-action>
+            <v-icon color="#F3F348">mdi-lightbulb-on-outline</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Toolbox -> github 3d drucker adoe ...</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item link to="/">
           <v-list-item-action>
             <v-icon color="#F3F348">mdi-logout</v-icon>

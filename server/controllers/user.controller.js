@@ -6,6 +6,7 @@
 //– /api/test/admin for admin users
 
 const events = require('../_db0/events.json')
+const ideas = require("../_db0/ideas.json")
 
 
 exports.allAccess = (req, res) => {
@@ -26,4 +27,10 @@ exports.allAccess = (req, res) => {
 
   exports.userDashboard = (req, res) => {
     res.status(200).send(events);
+  };
+
+  exports.userAllideas = (req, res) => {
+    res
+      .status(200)
+      .send(ideas);
   };

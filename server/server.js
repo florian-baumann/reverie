@@ -37,7 +37,11 @@ db.mongoose
     process.exit();
   });
 
+
+
+//Logger Middleware ohne xxxx.routes.js
 app.use(logger);
+
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to my application. bitch" });
@@ -46,12 +50,17 @@ app.get("/", (req, res) => {
 // routes
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
+require("./routes/action.routes")(app);
+
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+
 
 function initial() {
   Role.estimatedDocumentCount((err, count) => {

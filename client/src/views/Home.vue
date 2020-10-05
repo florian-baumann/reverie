@@ -4,6 +4,8 @@
       <EventCard v-for="event in events" :key="event.id" :event="event" />
       <IdeaCard v-for="idea in ideas" :key="idea.id" :idea="idea" />
     </template>
+
+    
     
     <!--feste:
     <Ideapreview/>
@@ -35,7 +37,7 @@ export default {
       this.events = data.events
     });
     axios.get('//localhost:8081/allideas').then(({ data }) => {
-      this.ideas = data.ideas
+      this.ideas = data
     });
   }
 }

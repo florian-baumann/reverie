@@ -91,6 +91,7 @@
       <!-- ------------------- -->
       <v-spacer></v-spacer>
       <!-- ------------------- -->
+
       <template v-if="user">
         <span class="nav-welcome">Hello, {{ user.username }} </span>  
         <v-btn
@@ -146,13 +147,30 @@
       
       </template>
       -->
-
+    
 
     </v-app-bar>
 
     <v-content>
-      <router-view></router-view> <!-- Content -->
+      <router-view></router-view> <!-- Content -->   
+
+      
     </v-content> 
+
+    <!-- new Idea Button-->
+    <v-btn
+      fab
+      color="#F3F348"
+      bottom
+      right
+      fixed
+      @click="dialog = !dialog"
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn> 
+      
+            
+   
   </v-app>
 </template>
 

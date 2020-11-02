@@ -20,13 +20,19 @@ MongoDB:
 
 start client: "npm run serve"
 
+
 start server with nodemon: "nodemon server.js"
 
+
 start mongoDB: "sudo service mongodb start"
+
 status mongoDB: "service mongodb status"
 
 
 ## Api
+
+####GET /allideas
+
 
     Authentication:
         POST /auth/signup

@@ -18,15 +18,17 @@ module.exports = function(app) {
     controller.downvote
     );
 
-    //delete
-    app.post("/posts/delete/:ideaId",
+    //new
+    app.post("/posts/new",
     [authJwt.verifyToken],
-    controller.delete
+    controller.create
     );
 
-    //new
-    //app.post("/posts/delete/:ideaId",
-    //[authJwt.verifyToken],
-    //controller.upvote
-    //);
+    //delete
+    // app.post("/posts/delete/:ideaId",
+    // [authJwt.verifyToken],
+    // controller.delete
+    // );
+
+    
 }

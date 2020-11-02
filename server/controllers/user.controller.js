@@ -6,7 +6,8 @@
 //– /api/test/admin for admin users
 
 const events = require('../_db0/events.json')
-const ideas = require("../_db0/ideas.json")
+const db = require("../models");
+const Idea = db.idea;
 
 
 exports.allAccess = (req, res) => {
@@ -26,11 +27,16 @@ exports.allAccess = (req, res) => {
   };
 
   exports.userDashboard = (req, res) => {
-    res.status(200).send(events);
+    res.status(200).send("user Dashboard");
   };
 
+  //just sends all ideas from mongo db
   exports.userAllideas = (req, res) => {
-    res
-      .status(200)
-      .send(ideas);
+    Idea.find((err, idea) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        return res.status(200).send(idea)
+      }
+    })
   };

@@ -87,10 +87,10 @@ export default {
           (error) => {
             console.log(error);
         });
-      //update der lokalen idea instanz! nicht dr server version!
-      this.idea.upvotes += 1;
-      this.isUpvoted = true;
-      },
+        //update der lokalen idea instanz! nicht dr server version!
+        this.idea.upvotes += 1;
+        this.isUpvoted = true;
+        },
       downvote(postid){
         axios.post('//localhost:8081/posts/downvote/' + postid)
           .then(({ res }) => {

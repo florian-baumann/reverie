@@ -158,16 +158,24 @@
     </v-content> 
 
     <!-- new Idea Button-->
-    <v-btn
-      fab
-      color="#F3F348"
-      bottom
-      right
-      fixed
-      @click="dialog = !dialog"
-    >
-      <v-icon>mdi-plus</v-icon>
-    </v-btn> 
+    <v-dialog v-model="dialog" persistent max-width="600px">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          fab
+          color="#F3F348"
+          bottom
+          right
+          fixed
+          v-bind="attrs"
+          v-on="on"
+          @click="dialog = !dialog"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn> 
+      </template>
+
+      <NewIdeaDialog @close="changedialog"></NewIdeaDialog>
+    </v-dialog>
       
             
    
@@ -175,13 +183,18 @@
 </template>
 
 <script>
+import NewIdeaDialog from "../components/NewIdeaDialog.vue"
+
 export default {
   name: 'App',
   components: {
+    NewIdeaDialog
+    
   },
   data() {
     return {
       drawer: null,
+      dialog: false
     } 
   },
   methods: {
@@ -190,6 +203,9 @@ export default {
       },
     logout () {
       this.$store.dispatch('logout')
+    },
+    changedialog () {
+      this.dialog = false
     }
   },
   computed: {

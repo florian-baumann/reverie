@@ -9,8 +9,11 @@ Github + Instagram + Twitter for Ideas
 
 JavaScript: 
 VueJs: 2.6
+
 VueX: 3.4
+
 ExpressJs: 4.17
+
 MongoDB: 
 
 ## Launch

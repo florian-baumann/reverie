@@ -1,11 +1,11 @@
-#reverie
+# reverie
 
-##Introduction
+## Introduction
 
     Github + Instagram + Twitter for Ideas
 
 
-##Technologies
+## Technologies
 
     JavaScript: 
     VueJs: 2.6
@@ -13,7 +13,7 @@
     ExpressJs: 4.17
     MongoDB: 
 
-##Launch
+## Launch
 ⋅⋅⋅
     start client: "npm run serve"
 
@@ -23,7 +23,7 @@
     status mongoDB: "service mongodb status"
 
 
-##Api
+## Api
 
     Authentication:
         POST /auth/signup

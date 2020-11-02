@@ -1,5 +1,4 @@
 # reverie
-# H1
 
 ## Introduction
 

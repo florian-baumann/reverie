@@ -75,17 +75,8 @@
           />
         </router-link>
 
-        <router-link to="/">
-          <v-img
-            alt="Name"
-            class="shrink mt-1 hidden-sm-and-down"
-            contain
-            min-width="100"
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-            width="100"
-            to="hello"
-          />
-        </router-link>
+        <h1>reverie.</h1>
+          
       </div>
 
       <!-- ------------------- -->

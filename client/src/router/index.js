@@ -4,6 +4,7 @@ import Hello from '../views/Hello.vue'
 import Auth from "../views/Auth.vue"
 import Home from "../views/Home.vue"
 import Values from "../views/Values.vue"
+import Idea from "../views/Idea.vue"
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ Vue.use(VueRouter)
     path: "/values",
     name: "Values",
     component: Values
+  },
+  {
+    path: "/idea/:id",
+    name: "Idea",
+    component: Idea
   }
 ]
 

@@ -11,10 +11,13 @@ module.exports = function(app) {
   });
 
   app.get("/test/all",
-    controller.allAccess);
+    controller.allAccess
+  );
 
   app.get("/test/user",
-    [authJwt.verifyToken], controller.userBoard);
+    [authJwt.verifyToken],
+    controller.userBoard
+  );
 
   app.get("/test/mod",
     [authJwt.verifyToken, authJwt.isModerator],
@@ -34,6 +37,11 @@ module.exports = function(app) {
   app.get("/allideas",
     [authJwt.verifyToken],
     controller.userAllideas
+  );
+
+  app.get("/idea/:id",
+    [authJwt.verifyToken],
+    controller.oneIdea
   );
 
 

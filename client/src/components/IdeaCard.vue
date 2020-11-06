@@ -5,25 +5,28 @@
     color="#605C4A"
     dark
   >
+    
     <v-card-text >
-      <div v-for="tag in idea.tags" :key="tag.i"> #{{tag}}</div>
-      <p class="display-1 text--primary" >
-        {{ idea.head }}
-      </p>
+      <!-- Idea Hashtags -->
+      <div v-for="tag in idea.tags" :key="tag.i"> #{{tag}} </div>
 
+      <!-- Idea Head -->
+      <p class="display-1 text--primary" >  {{ idea.head }} </p>
+
+      <!--  Creator Name  -->
       <p>{{idea.user.full_name}}</p>
 
-      <div class="text--primary" > 
-        {{idea.idea}}
-      </div>
+      <!-- Idea Discription -->
+      <div class="text--primary" >  {{idea.idea}} </div>
 
     </v-card-text>
 
 
     <v-card-actions>
 
+      <!--  Upvote Button -->
       <div v-if="!isUpvoted && !isDownvoted">
-        <v-btn v-on:click="upvote(idea.id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
+        <v-btn v-on:click="upvote(idea._id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
       </div>
       <div v-if="isDownvoted"><!-- only disabled the function call-->
         <v-btn icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
@@ -31,10 +34,12 @@
       <div v-if="isUpvoted">
         <v-btn icon> <v-icon>mdi-arrow-up-drop-circle</v-icon> </v-btn>
       </div>
-        {{this.idea.upvotes - this.idea.downvotes}} 
+        {{this.idea.upvotes + this.idea.downvotes}} 
 
+
+      <!--  Downvote Button -->
       <div v-if="!isUpvoted && !isDownvoted ">
-        <v-btn v-on:click="downvote(idea.id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
+        <v-btn v-on:click="downvote(idea._id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
       </div>
       <div v-if="isUpvoted"><!-- only disabled the function call-->
         <v-btn icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
@@ -43,17 +48,12 @@
         <v-btn icon> <v-icon>mdi-arrow-down-drop-circle</v-icon> </v-btn>
       </div>
         
-      <!--<div v-else>
-        <v-btn icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
 
-        {{this.idea.upvotes - this.idea.downvotes}} 
-
-        <v-btn icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
-      </div>-->
-
+      <!--  Read More Button -->
       <v-btn
         text
         color="#FFFFFF"
+        :to= "{name: 'Idea', params: {id: idea._id}}"
       >
         Read More
       </v-btn>
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import axios from 'axios' 
+import axios from "axios";
 
 export default {
     name: "IdeaCard",
@@ -80,7 +80,7 @@ export default {
     },
     methods:{
       upvote(postid){
-        axios.post('//localhost:8081/posts/upvote/' + postid)
+        axios.put('//localhost:8081/posts/upvote/' + postid)
           .then(({ res }) => {
             console.log(res);
           },
@@ -92,7 +92,7 @@ export default {
         this.isUpvoted = true;
         },
       downvote(postid){
-        axios.post('//localhost:8081/posts/downvote/' + postid)
+        axios.put('//localhost:8081/posts/downvote/' + postid)
           .then(({ res }) => {
             console.log(res);
           },
@@ -100,7 +100,7 @@ export default {
             console.log(error);
         });
       //update der lokalen idea instanz! nicht dr server version!
-      this.idea.downvotes += 1;
+      this.idea.downvotes -= 1;
       this.isDownvoted = true;
 
       }

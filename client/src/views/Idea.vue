@@ -1,0 +1,38 @@
+<template>
+    <div>
+        <div>Idea id: {{ $route.params.id }}</div>
+
+        <IdeaFullSize v-bind:idea="this.idea"> </IdeaFullSize>
+
+        
+
+    </div>
+</template>
+
+<script>
+import IdeaFullSize from "../components/IdeaFullSize.vue";
+import axios from "axios";
+
+export default {
+    name: "Idea",
+    components: {
+        IdeaFullSize
+    },
+    data(){
+        return {
+             id: this.$route.params.id,
+             idea: null
+        }
+    },
+    created () {
+        axios.get("//localhost:8081/idea/" + this.id).then(({ data }) => {
+        this.idea = data
+        });
+    }
+
+}
+</script>
+
+<style scoped>
+
+</style>

@@ -1,10 +1,7 @@
 <template>
     <div>
-        <div>Idea id: {{ $route.params.id }}</div>
 
         <IdeaFullSize v-bind:idea="this.idea"> </IdeaFullSize>
-
-        
 
     </div>
 </template>
@@ -29,8 +26,8 @@ export default {
         this.idea = data
         });
     }
-
 }
+
 </script>
 
 <style scoped>

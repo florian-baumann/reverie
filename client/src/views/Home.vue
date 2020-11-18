@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper"> 
     <template v-if="ideas !== 'Loading ideas...'">
       <IdeaCard v-for="idea in ideas" :key="idea.id" :idea="idea" />
     </template>

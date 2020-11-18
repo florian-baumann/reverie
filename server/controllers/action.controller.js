@@ -1,5 +1,6 @@
 const db = require("../models");
 const Idea = db.idea;
+const User = db.user;
 
 
 //Upvote
@@ -71,8 +72,6 @@ exports.create = (req, res) => {
     const idea = new Idea({
         "user": {
             "username": New.user.username,
-            "id": New.user.id,
-            "full_name": New.user.full_name
         },
         "created_time": Date,
         "tags": New.tags,
@@ -82,7 +81,6 @@ exports.create = (req, res) => {
         "upvotes": 0,
         "downvotes": 0,
         "comments": []
-
     });
 
     idea.save(err => {
@@ -91,10 +89,7 @@ exports.create = (req, res) => {
         } else {
             console.log(idea);
             return res.status(200).send(idea);
-        }
- 
-
-        
+        }  
     });
 }
 

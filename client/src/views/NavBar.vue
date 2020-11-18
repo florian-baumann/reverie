@@ -1,60 +1,7 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      right
-      dark
-      color="#605c4a"
-    >
-      <v-list dense >
-        <v-list-item link to="/home">  
-          <v-list-item-action>
-            <v-icon color="#F3F348">mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content >
-            <v-list-item-title >Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        
-        
-        <v-list-item link to="">
-          <v-list-item-action>
-            <v-icon color="#F3F348">mdi-email</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link to="/values">
-          <v-list-item-action>
-            <v-icon color="#F3F348">mdi-lightbulb-on-outline</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Values</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link to="/values">
-          <v-list-item-action>
-            <v-icon color="#F3F348">mdi-lightbulb-on-outline</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Toolbox -> github 3d drucker adoe ...</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link to="/">
-          <v-list-item-action>
-            <v-icon color="#F3F348">mdi-logout</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Logout</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    
+    <NavDrawer v-bind:drawer="this.drawer"> </NavDrawer>
 
     <v-app-bar
       app
@@ -63,7 +10,7 @@
     >
       <div class="d-flex align-center">
         <!--https://www.freepik.com/free-icon/light-bulb_941295.htm#page=1&query=idea&position=12-->
-        <router-link to="/">
+        <router-link to="/home">
           <v-img
             alt="Logo"
             class="shrink mr-2"
@@ -83,22 +30,9 @@
       <v-spacer></v-spacer>
       <!-- ------------------- -->
 
-      <template v-if="user">
-        <span class="nav-welcome">Hello, {{ user.username }} </span>  
-        <v-btn
-          small
-          outlined
-          color="#F3F348"
-          class=" logoutButton ma-2"
-          to="/"
-          @click="logout"
-        >
-          Logout
-        </v-btn>
-
-      </template>
+     
       
-      <template v-else>
+      <template v-if="!user">
         <v-btn
           small
           outlined
@@ -121,24 +55,6 @@
       </template>
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" color="#F3F348"></v-app-bar-nav-icon>
-
-
-
-      <!-- TABS
-      <template v-slot:extension>
-        <v-tabs
-          v-model="model"
-          centered
-          slider-color="yellow"
-        >
-          <v-tab>New</v-tab>
-          <v-tab>Popular</v-tab>
-          <v-tab>Chat</v-tab>
-        </v-tabs>
-      
-      </template>
-      -->
-    
 
     </v-app-bar>
 
@@ -175,26 +91,24 @@
 
 <script>
 import NewIdeaDialog from "../components/NewIdeaDialog.vue"
+import NavDrawer from "../components/NavDrawer.vue"
 
 export default {
   name: 'App',
   components: {
-    NewIdeaDialog
-    
+    NewIdeaDialog,
+    NavDrawer    
   },
   data() {
     return {
-      drawer: null,
-      dialog: false
+      dialog: false,
+      drawer:false
     } 
   },
   methods: {
     isNew (isNewUser) {
       this.$store.dispatch('isNewUser', !isNewUser)
       },
-    logout () {
-      this.$store.dispatch('logout')
-    },
     changedialog () {
       this.dialog = false
     }

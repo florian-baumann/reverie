@@ -4,7 +4,7 @@
     max-width="344"
     color="#605C4A"
     dark
-  >
+    >
     
     <v-card-text >
       <!-- Idea Hashtags -->
@@ -14,7 +14,7 @@
       <p class="display-1 text--primary" >  {{ idea.head }} </p>
 
       <!--  Creator Name  -->
-      <p>{{idea.user.full_name}}</p>
+      <p>{{idea.user.username}}</p>
 
       <!-- Idea Discription -->
       <div class="text--primary" >  {{idea.idea}} </div>
@@ -79,8 +79,8 @@ export default {
       };
     },
     methods:{
-      upvote(postid){
-        axios.put('//localhost:8081/posts/upvote/' + postid)
+      upvote(postId){
+        axios.put('//localhost:8081/posts/upvote/' + postId)
           .then(({ res }) => {
             console.log(res);
           },
@@ -91,8 +91,8 @@ export default {
         this.idea.upvotes += 1;
         this.isUpvoted = true;
         },
-      downvote(postid){
-        axios.put('//localhost:8081/posts/downvote/' + postid)
+      downvote(postId){
+        axios.put('//localhost:8081/posts/downvote/' + postId)
           .then(({ res }) => {
             console.log(res);
           },

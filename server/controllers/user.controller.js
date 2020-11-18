@@ -30,7 +30,7 @@ exports.userDashboard = (req, res) => {
 };
 
 //just sends all ideas from mongo db
-exports.userAllideas = (req, res) => {
+exports.allIdeas = (req, res) => {
   Idea.find((err, idea) => {
     if (err) {
       return res.status(500).send(err);
@@ -40,7 +40,7 @@ exports.userAllideas = (req, res) => {
   })
 };
 
-//sends one idea from mongodb
+//sends one idea from mongodb with id
 exports.oneIdea = (req, res) => {
   Idea.findById(req.params.id, (err, curr) => {
     if(err) {
@@ -48,6 +48,16 @@ exports.oneIdea = (req, res) => {
     } else {
       console.log(curr);
       return res.status(200).send(curr);
+    }
+  })
+};
+
+exports.allUserIdeas = (req, res) => {
+  Idea.find({"user.username": req.params.username}, (err, ideas) => {
+    if (err) {
+      return res.status(500).send(err);
+    } else {
+      return res.status(200).send(ideas)
     }
   })
 };

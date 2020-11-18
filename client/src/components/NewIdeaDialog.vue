@@ -2,8 +2,8 @@
 <template>
   <div class="wrapper">
       <v-card max-width="auto"  color="#778d7a">
-        <v-card-title>Publish your new Idea!</v-card-title>
-
+        <v-card-title>Publish your new Idea !</v-card-title>
+        
         <v-card-text>
             <v-container>
                 <v-row>
@@ -97,23 +97,24 @@ export default {
         heading:"",
         newHashtag: "",
         hashtags: ["hello", "world"],
-        description: ""
+        description: "",
+        
     } 
   },
   methods: {
-      addHashtag() {
-          if(this.newHashtag){
-              this.hashtags.push(this.newHashtag);
-              this.newHashtag = "";
-          }
-      },
-      deleteHashtag(index) {
-          this.hashtags.splice(index,1);
-      },
-      sendData() {
+    addHashtag() {
+        if(this.newHashtag){
+            this.hashtags.push(this.newHashtag);
+            this.newHashtag = "";
+        }
+    },
+    deleteHashtag(index) {
+        this.hashtags.splice(index,1);
+    },
+    sendData() {
         var newIdea = {
             "id": null,
-            "user": { "username": "max123", "id": 5, "full_name": "max0" },
+            "user": { "username": this.$store.state.user.username, "id": 5,},
             "tags": this.hashtags,
             "link": null,
             "head": this.heading,
@@ -132,19 +133,15 @@ export default {
                 // Overwrite Axios's automatically set Content-Type
                 'Content-Type': 'application/json'
                 }
-            })
-            .then(({ res }) => {
-                console.log(res);
-            },
-            (error) => {
-                console.log(error);
-            });
-
-        //Close Dialog
-        
-      },
-      
-  }
+        })
+        .then(({ res }) => {
+            console.log(res);
+        },
+        (error) => {
+            console.log(error);
+        });
+    }, 
+  },
 }
 </script>
 

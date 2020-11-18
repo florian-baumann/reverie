@@ -5,6 +5,7 @@ import Auth from "../views/Auth.vue"
 import Home from "../views/Home.vue"
 import Values from "../views/Values.vue"
 import Idea from "../views/Idea.vue"
+import My from "../views/My.vue"
 
 Vue.use(VueRouter)
 
@@ -33,7 +34,13 @@ Vue.use(VueRouter)
     path: "/idea/:id",
     name: "Idea",
     component: Idea
+  },
+  {
+    path: "/my",
+    name: "My",
+    component: My
   }
+
 ]
 
 const router = new VueRouter({

@@ -10,8 +10,10 @@
             >   
             
             <v-card-text >
-                <!-- Idea Hashtags -->
-                <div v-for="tag in idea.tags" :key="tag.i"> #{{tag}} </div>
+                <!-- Idea Hashtags -- v-if to avoid error-->
+                <div v-if="idea.tags"> 
+                    <div v-for="tag in idea.tags" :key="tag.i"> #{{tag}} </div>
+                </div>
 
                 <!-- Idea Head -->
                 <p class="display-1 text--primary" >  {{ idea.head }} </p>
@@ -51,8 +53,57 @@
                     <v-btn icon> <v-icon>mdi-arrow-down-drop-circle</v-icon> </v-btn>
                 </div>
 
+
+                <!-- comment Button + Dialog-->
+                <v-dialog v-model="dialog" persistent max-width="600px" >
+
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn icon v-bind="attrs" v-on="on">
+                            <v-icon>mdi-comment-outline</v-icon>
+                        </v-btn>
+                    </template>
+
+                    <v-card>
+                        <v-card-title>
+                        <span>New Comment</span>
+                        </v-card-title>
+
+                        <v-card-text>
+                            <v-textarea
+                                rows= "2"
+                                outlined
+                                v-model="newComment"
+                                placeholder="... comment ..."
+                            ></v-textarea>
+                        </v-card-text>
+
+                        <v-card-actions>
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="dialog = false"
+                        >
+                            Close
+                        </v-btn>
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="dialog = false; sendNewComment()"
+                        >
+                            Save
+                        </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+
+
+                <v-spacer></v-spacer>
                 
 
+                <!-- delete button -->
                 <div v-if="isAuthor">
                     <v-btn v-on:click="delt(idea._id)" icon> <v-icon>mdi-delete</v-icon> </v-btn>
                 </div>
@@ -61,9 +112,8 @@
         </v-card>
 
 
-        <div v-for="comment in comments" :key="comment._id"> 
+        <div v-for="comment in this.idea.comments" :key="comment._id"> 
             <CommentFullSize v-bind:comment="comment"></CommentFullSize>
-            
         </div>
             
     </div>
@@ -85,35 +135,8 @@ export default {
         return {
             isUpvoted: false,
             isDownvoted: false,
-            comments: [
-                {
-                    _id: 1,
-                    username: "trump",
-                    userId: 42069,
-                    timestamp: 1234567890,
-                    comment: "The container used for placing actions for a card, such as v-btn or v-menu. Also applies special margin to buttons so that they properly line up with other card content areas.",
-                    upvotes: 10,
-                    downvotes: 5
-                },
-                {
-                    _id: 2,
-                    username: "trump1",
-                    userId: 42069,
-                    timestamp: 1234567890,
-                    comment: "Provides a default font-size and padding for card subtitles. Font-size can be overwritten with typography classes",
-                    upvotes: 16,
-                    downvotes: 5
-                },
-                {
-                    _id: 3,
-                    username: "trump2",
-                    userId: 42069,
-                    timestamp: 1234567890,
-                    comment: "Primarily used for text content in a card. Applies padding for text, reduces its font-size to .875rem.",
-                    upvotes: 10,
-                    downvotes: 13
-                }
-            ]
+            dialog: false,
+            newComment: "",
         }
     },
     methods:{
@@ -151,17 +174,39 @@ export default {
             });
             window.history.back();
         },
-        isAuthor(){
-             if(this.user.username == this.idea.user.username) {
+        sendNewComment() {
+            var newComment = {
+                "username": this.user.username,
+                "comment": this.newComment,
+            }
+
+            const json = JSON.stringify({ newComment });
+
+            axios.post("//localhost:8081/comment/" + this.idea._id + "/new", json, {
+                headers: {
+                // Overwrite Axios's automatically set Content-Type
+                'Content-Type': 'application/json'
+                }
+            })
+                .them(({res}) => {
+                    console.log(res);
+                },
+                (err) => {
+                    console.log(err);
+                });
+        }
+        
+    },
+    computed: {
+        user() {
+            return this.$store.state.user;
+        },
+        isAuthor() {
+             if(this.user.username === this.idea.user.username) {
                 return true;
             } else {
                 return false;
             }
-        }
-    },
-    computed: {
-        user() {
-            return this.$store.state.username;
         }
     }
     

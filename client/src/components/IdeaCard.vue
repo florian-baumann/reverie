@@ -47,13 +47,21 @@
       <div v-if="isDownvoted">
         <v-btn icon> <v-icon>mdi-arrow-down-drop-circle</v-icon> </v-btn>
       </div>
+
+
+      <!-- comment Button -->
+      <v-btn icon :to="{name: 'Idea', params: {id: idea._id}}">
+        <v-badge :content="idea.comments.length" color="#45443E" overlap dark>
+          <v-icon>mdi-comment-outline</v-icon>
+        </v-badge>
+      </v-btn>
         
 
       <!--  Read More Button -->
       <v-btn
         text
         color="#FFFFFF"
-        :to= "{name: 'Idea', params: {id: idea._id}}"
+        :to="{name: 'Idea', params: {id: idea._id}}"
       >
         Read More
       </v-btn>
@@ -75,7 +83,7 @@ export default {
     data (){
       return{
         isUpvoted: false,
-        isDownvoted: false
+        isDownvoted: false,
       };
     },
     methods:{
@@ -102,9 +110,9 @@ export default {
       //update der lokalen idea instanz! nicht dr server version!
       this.idea.downvotes -= 1;
       this.isDownvoted = true;
-
       }
-    }
+    },
+    
     
 }
 </script>

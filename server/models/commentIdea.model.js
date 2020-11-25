@@ -1,12 +1,18 @@
 const mongoose = require("mongoose");
 
-const CommentIdea =  new mongoose.Schema({
-    "username": String,
-    "userId": Number,
-    "timestamp": Date,
-    "comment": String,
-    "upvotes": Number,
-    "downvotes": Number
-    })
+const CommentIdea =  mongoose.model(
+    "commentIdea",
+    new mongoose.Schema({
+        "username": String,
+        "userId": Number,
+        "created": {
+            type: Date,
+            default: Date.now
+        },
+        "comment": String,
+        "upvotes": Number,
+        "downvotes": Number
+        })
+);
 
 module.exports = CommentIdea;

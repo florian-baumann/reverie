@@ -50,8 +50,8 @@ app.get("/", (req, res) => {
 // routes
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
-require("./routes/action.routes")(app);
-
+require("./routes/idea.action.routes")(app);
+require("./routes/comment.action.routes")(app);
 
 
 // set port, listen for requests

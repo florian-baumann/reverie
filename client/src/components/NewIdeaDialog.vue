@@ -137,8 +137,8 @@ export default {
         .then(({ res }) => {
             console.log(res);
         },
-        (error) => {
-            console.log(error);
+        (err) => {
+            console.log(err);
         });
     }, 
   },

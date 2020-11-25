@@ -1,6 +1,6 @@
 const { authJwt } = require("../middlewares");
 
-const controller = require("../controllers/action.controller");
+const controller = require("../controllers/idea.action.controller");
 
 
 module.exports = function(app) {
@@ -28,6 +28,4 @@ module.exports = function(app) {
     [authJwt.verifyToken],
     controller.delete
     );
-
-    
 }

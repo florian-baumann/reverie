@@ -20,15 +20,16 @@ exports.upvote = (req, res) => {
                 {
                     new: true,                       // return updated doc
                     runValidators: true              // validate before update
-                })
-                .then(doc => {
-                    console.log(doc);
-                    res.status(200).send(Idea);
-                })
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).send(err);
-                });
+                }
+            )
+            .then(doc => {
+                console.log(doc);
+                res.status(200).send(Idea);
+            })
+            .catch(err => {
+                console.error(err);
+                res.status(500).send(err);
+            });
         }
     })
 };

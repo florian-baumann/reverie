@@ -1,4 +1,5 @@
 const db = require("../models");
+//const CommentIdea = require("../models/commentIdea.model");
 const CommentIdea = db.commentIdea;
 const Idea = db.idea;
 
@@ -7,14 +8,14 @@ const Idea = db.idea;
 exports.create = (req, res) => {
     let New = req.body.newComment;
 
-    const comment = {
+    const comment = new CommentIdea({
         "username": New.username,
         "userId": 0,
         "timestamp": 0,
         "comment": New.comment,
         "upvotes": 0,
         "downvotes": 0
-    };
+    });
 
 
     // Idea.comments.push(comment);
@@ -26,7 +27,7 @@ exports.create = (req, res) => {
     
 
     Idea.findByIdAndUpdate(req.params.ideaId, 
-        { $push: {comments: comment}},
+        { $push: {comments: comment.toObject()}},
         function (err, succ) {
             if (err) {
                 return res.status(500).send({ message: err });
@@ -55,26 +56,72 @@ exports.create = (req, res) => {
 exports.upvote = (req, res) => {
     var newupvotes;
     
-    Idea.findOneAndUpdate(
-        {comments: {
-            $elemMaatch: {_id: req.param.commId}
-        }},
-        {upvotes: newupvotes},
-        {
-            new: true,                       // return updated doc
-            runValidators: true              // validate before update
+    // CommentIdea.findById(
+    //     "5fbed0aba1ee0b0c6a1729d6",
+    //     {upvotes: 10},
+    //     {
+    //         new: true,                       // return updated doc
+    //         runValidators: true              // validate before update
+    //     }
+    // )
+    // .then(doc => {
+    //     console.log(doc);
+    //     res.status(200).send(CommentIdea);
+    // })
+    // .catch(err => {
+    //     console.error(err);
+    //     res.status(500).send(err);
+    // });
+
+    //-----------------
+
+    console.log(req.params.commId);
+
+    // CommentIdea.findById(req.params.ideaId, function (err, docs) { 
+    //     if (err){ 
+    //         console.log(err); 
+    //     } 
+    //     else{ 
+    //         console.log("Result : ", docs); 
+    //     } 
+    // }); 
+
+    // Idea.find(
+    //     { "comments._id": "5fbc456c50579adb7d663dc2"},
+        
+    //     (err, docs) => {
+    //         if (err){ 
+    //             console.log(err); 
+    //         } 
+    //         else{ 
+    //                console.log("Result : ", docs); 
+    //         } 
+    //     }
+    // )
+
+    // CommentIdea.find({"username": "user"}, (err, ideas) => {
+    //     if (err) {
+    //       return res.status(500).send(err);
+    //     } else {
+    //       return res.status(200).send(ideas)
+    //     }
+    //   })
+
+
+    Idea.updateOne(
+        {"_id": req.params.ideaId, "comments._id": req.params.commId},
+        {"$set": {"comments.$.upvotes": 69 } },
+        function(err, docs) {
+            if (err){ 
+                console.log(err);
+                res.status(500).send(err);
+            } 
+            else{ 
+                    console.log("Result : ", docs); 
+                    res.status(200).send(docs)
+            } 
         }
     )
-    .then(doc => {
-        console.log(doc);
-        res.status(200).send(Idea);
-    })
-    .catch(err => {
-        console.error(err);
-        res.status(500).send(err);
-    });
-
-   
     
 };
 

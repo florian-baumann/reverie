@@ -46,7 +46,7 @@ exports.oneIdea = (req, res) => {
     if(err) {
       return res.status(500).send(err);
     } else {
-      console.log(curr);
+      //console.log(curr);
       return res.status(200).send(curr);
     }
   })

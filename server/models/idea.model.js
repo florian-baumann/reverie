@@ -30,7 +30,7 @@ const Idea = mongoose.model(
     "idea": String,
     "upvotes": Number,
     "downvotes": Number,
-    "comments": []      //[comment]
+    "comments": [CommentIdea.schema]      //[comment]
   })
 );
 

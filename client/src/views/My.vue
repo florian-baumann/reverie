@@ -78,8 +78,9 @@ export default {
     },
     
     created () {
-        axios.get("//localhost:8081/allideas/" + this.user.username).then(({ data }) => {
-        this.ideas = data
+        //get all ideas from username
+        axios.get("//localhost:8081/idea/user/" + this.username).then(({ data }) => {
+        this.ideas = data;
         });
     },
     computed: {

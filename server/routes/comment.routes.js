@@ -1,6 +1,6 @@
 const { authJwt } = require("../middlewares");
 
-const controller = require("../controllers/comment.action.controller");
+const controller = require("../controllers/comment.controller");
 
 
 module.exports = function(app) {
@@ -25,6 +25,21 @@ module.exports = function(app) {
 
     //delete
     app.delete("/posts/delete/:ideaId/:comId",
+    [authJwt.verifyToken],
+    controller.delete
+    );
+
+    app.get("/posts/delete/:ideaId/:comId",
+    [authJwt.verifyToken],
+    controller.delete
+    );
+
+    app.get("/posts/delete/:ideaId/:comId",
+    [authJwt.verifyToken],
+    controller.delete
+    );
+
+    app.get("/posts/delete/:ideaId/:comId",
     [authJwt.verifyToken],
     controller.delete
     );

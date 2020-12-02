@@ -21,7 +21,7 @@ export default {
       }
   },
   created () {
-    axios.get('//localhost:8081/allideas').then(({ data }) => {
+    axios.get('//localhost:8081/idea/feed').then(({ data }) => {
       this.ideas = data
     });
   }

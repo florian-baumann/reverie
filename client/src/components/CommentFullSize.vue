@@ -66,7 +66,7 @@ export default {
     },
     methods:{
         upvote(commentId){
-            axios.put('//localhost:8081/comment/upvote/' + commentId)
+            axios.put("//localhost:8081/comment/" + commentId + "/upvote")
                 .then(({ res }) => {
                     console.log(res);
                 },
@@ -78,7 +78,7 @@ export default {
                 this.isUpvoted = true;
             },
         downvote(commentId){
-            axios.put('//localhost:8081/comment/downvote/' + commentId)
+            axios.put("//localhost:8081/comment/" + commentId + "/downvote")
                 .then(({ res }) => {
                     console.log(res);
                 },

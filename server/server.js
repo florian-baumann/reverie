@@ -44,14 +44,14 @@ app.use(logger);
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to my application. bitch" });
+  res.json({ message: "Welcome to my server. bitch" });
 });
 
 // routes
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
-require("./routes/idea.action.routes")(app);
-require("./routes/comment.action.routes")(app);
+require("./routes/idea.routes")(app);
+require("./routes/comment.routes")(app);
 
 
 // set port, listen for requests

@@ -69,27 +69,23 @@ exports.downvote = (req, res) => {
 //New
 exports.create = (req, res) => {
     let New = req.body.newIdea;
-
-    const idea = new Idea({
-        "user": {
-            "username": New.user.username,
-        },
-        "created_time": Date,
+   
+    const newIdea = new Idea({
+        "AuthorId": req.userId,
         "tags": New.tags,
-        //"link": String,
         "head": New.head,
-        "idea": New.idea,
+        "description": New.idea,
         "upvotes": 0,
         "downvotes": 0,
         "comments": []
     });
 
-    idea.save(err => {
+    newIdea.save(err => {
         if (err) {
             return res.status(500).send({ message: err });
         } else {
-            console.log(idea);
-            return res.status(200).send(idea);
+            console.log(newIdea);
+            return res.status(200).send(newIdea);
         }  
     });
 }
@@ -107,3 +103,35 @@ exports.delete = (req, res) => {
             res.status(500).send(err);
         })
 }
+
+exports.feed = (req, res) => {
+    Idea.find((err, idea) => {
+        if (err) {
+          return res.status(500).send(err);
+        } else {
+          return res.status(200).send(idea)
+        }
+      })
+};
+  
+  //sends one idea from mongodb with id
+  exports.oneIdea = (req, res) => {
+    Idea.findById(req.params.id, (err, curr) => {
+      if(err) {
+        return res.status(500).send(err);
+      } else {
+        //console.log(curr);
+        return res.status(200).send(curr);
+      }
+    })
+  };
+  
+  exports.allUserIdeas = (req, res) => {
+    Idea.find({"user.username": req.params.username}, (err, ideas) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        return res.status(200).send(ideas)
+      }
+    })
+  };

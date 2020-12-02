@@ -1,24 +1,13 @@
 const mongoose = require("mongoose");
-const CommentIdea = require("./commentIdea.model"); //Subschema
 
-// const Comment = new mongoose.Schema({
-//   "username": String,
-//   "userId": Number,
-//   "created": {
-//       type: Date,
-//       default: Date.now
-//   },
-//   "comment": String,
-//   "upvotes": Number,
-//   "downvotes": Number
-// })
+
 
 const Idea = mongoose.model(
   "idea",
   new mongoose.Schema({
-    "user": {
-        "username": String,
-        "id": Number
+    "AuthorId": {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
     },
     "created": {
       type: Date,
@@ -27,10 +16,23 @@ const Idea = mongoose.model(
     "tags": [String],
     "link": String,
     "head": String,
-    "idea": String,
+    "description": String,
+
     "upvotes": Number,
+    "userUpvotes": [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }],
     "downvotes": Number,
-    "comments": [CommentIdea.schema]      //[comment]
+    "userDownvotes": [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }],
+
+    "comments": [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
+    }] 
   })
 );
 

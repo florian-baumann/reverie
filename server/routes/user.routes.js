@@ -34,23 +34,4 @@ module.exports = function(app) {
     controller.userDashboard
   );
 
-  //giving back all existing Ideas
-  app.get("/allideas",
-    [authJwt.verifyToken],
-    controller.allIdeas
-  );
-
-  //giving back all ideas of username
-  app.get("/allideas/:username",
-  [authJwt.verifyToken],
-  controller.allUserIdeas
-  );
-
-  //giving back one specific idea from id
-  app.get("/idea/:id",
-    [authJwt.verifyToken],
-    controller.oneIdea
-  );
-
-
 };

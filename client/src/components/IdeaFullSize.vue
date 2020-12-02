@@ -141,7 +141,7 @@ export default {
     },
     methods:{
         upvote(postid){
-            axios.put('//localhost:8081/posts/upvote/' + postid)
+            axios.put("//localhost:8081/idea/" + postid + "/upvote")
                 .then(({ res }) => {
                     console.log(res);
                 },
@@ -153,7 +153,7 @@ export default {
                 this.isUpvoted = true;
             },
         downvote(postid){
-            axios.put('//localhost:8081/posts/downvote/' + postid)
+            axios.put("//localhost:8081/idea/" + postid + "/downvote")
                 .then(({ res }) => {
                     console.log(res);
                 },
@@ -165,7 +165,7 @@ export default {
             this.isDownvoted = true;
         },
         delt(postid) {
-            axios.delete("//localhost:8081/posts/delete/" + postid)
+            axios.delete("//localhost:8081/idea/" + postid + "/delete")
                 .then(({ res }) => {
                     console.log(res);
                 },

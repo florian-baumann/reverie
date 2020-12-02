@@ -28,36 +28,3 @@ exports.moderatorBoard = (req, res) => {
 exports.userDashboard = (req, res) => {
   res.status(200).send("user Dashboard");
 };
-
-//just sends all ideas from mongo db
-exports.allIdeas = (req, res) => {
-  Idea.find((err, idea) => {
-    if (err) {
-      return res.status(500).send(err);
-    } else {
-      return res.status(200).send(idea)
-    }
-  })
-};
-
-//sends one idea from mongodb with id
-exports.oneIdea = (req, res) => {
-  Idea.findById(req.params.id, (err, curr) => {
-    if(err) {
-      return res.status(500).send(err);
-    } else {
-      //console.log(curr);
-      return res.status(200).send(curr);
-    }
-  })
-};
-
-exports.allUserIdeas = (req, res) => {
-  Idea.find({"user.username": req.params.username}, (err, ideas) => {
-    if (err) {
-      return res.status(500).send(err);
-    } else {
-      return res.status(200).send(ideas)
-    }
-  })
-};

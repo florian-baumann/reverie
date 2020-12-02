@@ -1,14 +1,14 @@
 const db = require("../models");
 //const CommentIdea = require("../models/commentIdea.model");
-const CommentIdea = db.commentIdea;
+const Comment = db.comment;
 const Idea = db.idea;
 
 
 //New Comment under Idea
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     let New = req.body.newComment;
 
-    const comment = new CommentIdea({
+    const comm = new Comment({
         "username": New.username,
         "userId": 0,
         "timestamp": 0,
@@ -17,26 +17,28 @@ exports.create = (req, res) => {
         "downvotes": 0
     });
 
-
-    // Idea.comments.push(comment);
-    // Idea.save(function (err) {
-    //     if (err) return handleError(err)
-    //     console.log('Success!');
-    //   });
+    await comm.save(err => {
+        if (err) {
+            return res.status(500).send({ message: err });
+        } else {
+            console.log(idea);
+            return res.status(200).send(idea);
+        }  
+    });
 
     
 
-    Idea.findByIdAndUpdate(req.params.ideaId, 
-        { $push: {comments: comment.toObject()}},
-        function (err, succ) {
-            if (err) {
-                return res.status(500).send({ message: err });
-            } else {
-                console.log(succ);
-                return res.status(200).send(succ);
-            }  
-        }
-    )
+    // Idea.findByIdAndUpdate(req.params.ideaId, 
+    // { $push: {comments: comment.toObject()}},
+    // function (err, succ) {
+    //     if (err) {
+    //         return res.status(500).send({ message: err });
+    //     } else {
+    //         console.log(succ);
+    //         return res.status(200).send(succ);
+    //     }  
+    // }
+    // )
 };
 
 

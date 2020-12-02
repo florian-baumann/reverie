@@ -128,7 +128,7 @@ export default {
         //glaube das kann man sich sparen und der custom header -- macht axios automatisch
         const json = JSON.stringify({ newIdea });
 
-        axios.post('//localhost:8081/posts/new', json, {
+        axios.post('//localhost:8081/idea/new', json, {
                 headers: {
                 // Overwrite Axios's automatically set Content-Type
                 'Content-Type': 'application/json'

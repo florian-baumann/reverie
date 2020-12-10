@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 
 
 const Idea = mongoose.model(
-  "idea",
+  "Idea",
   new mongoose.Schema({
-    "AuthorId": {
+    "authorId": {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     },

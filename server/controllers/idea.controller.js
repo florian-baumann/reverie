@@ -7,6 +7,7 @@ const User = db.user;
 exports.upvote = (req, res) => {
 
     var newupvotes;
+
     
     Idea.findById(req.params.ideaId, function(err, docs) {
         if(err) {
@@ -16,7 +17,10 @@ exports.upvote = (req, res) => {
 
             Idea.findByIdAndUpdate(
                 req.params.ideaId,
-                {upvotes: newupvotes},
+                {
+                    $set: {upvotes: newupvotes},
+                    $push: {userUpvotes: req.userId}
+                },
                 {
                     new: true,                       // return updated doc
                     runValidators: true              // validate before update
@@ -34,7 +38,7 @@ exports.upvote = (req, res) => {
     })
 };
 
-//Downvote
+// //Downvote
 exports.downvote = (req, res) => {
 
     var newdownvotes;
@@ -48,12 +52,14 @@ exports.downvote = (req, res) => {
             Idea.findByIdAndUpdate(
                 req.params.ideaId,
                 {
-                    downvotes: newdownvotes
+                    $set: {downvotes: newdownvotes},
+                    $push: {userDownvotes: req.userId}      //TODO provides no uniquness!!
                 },
                 {
                     new: true,                       // return updated doc
                     runValidators: true              // validate before update
-            })
+                }
+            )
             .then(doc => {
                 console.log(doc);
                 res.status(200).send(Idea);
@@ -65,6 +71,9 @@ exports.downvote = (req, res) => {
         }
     })
 };
+
+
+
 
 //New
 exports.create = (req, res) => {
@@ -93,6 +102,8 @@ exports.create = (req, res) => {
 //Delete
 exports.delete = (req, res) => {
     
+    
+
     Idea.findByIdAndDelete(req.params.ideaId)
         .then(response => {
             console.log(response);
@@ -104,34 +115,47 @@ exports.delete = (req, res) => {
         })
 }
 
+//giving back feed (all existing Ideas)
 exports.feed = (req, res) => {
     Idea.find((err, idea) => {
         if (err) {
           return res.status(500).send(err);
         } else {
+
           return res.status(200).send(idea)
         }
       })
 };
   
-  //sends one idea from mongodb with id
-  exports.oneIdea = (req, res) => {
-    Idea.findById(req.params.id, (err, curr) => {
-      if(err) {
+
+ //giving back all ideas of username
+exports.allIdeasbyUser = (req, res) => {
+    Idea.find({"user.userId": req.param.userId}, (err, ideas) => {
+        if (err) {
         return res.status(500).send(err);
-      } else {
-        //console.log(curr);
-        return res.status(200).send(curr);
-      }
-    })
-  };
-  
-  exports.allUserIdeas = (req, res) => {
-    Idea.find({"user.username": req.params.username}, (err, ideas) => {
-      if (err) {
-        return res.status(500).send(err);
-      } else {
+        } else {
         return res.status(200).send(ideas)
-      }
+        }
     })
-  };
+};
+
+
+//sends one idea with comments from mongodb with id
+exports.ideaById = (req, res) => {
+        // Idea
+        //     .findById(req.params.ideaId)
+        //     .populate("comments")
+        //     .then (temp => {
+        //         res.json(temp);
+        //     })
+
+        Idea.findById(req.params.ideaId, (err, curr) => {
+            if(err) {
+              return res.status(500).send(err);
+            } else {
+              //console.log(curr);
+              return res.status(200).send(curr);
+            }
+        })
+        .populate("comments");
+};

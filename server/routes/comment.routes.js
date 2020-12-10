@@ -8,39 +8,39 @@ module.exports = function(app) {
     //new Comment
     app.post("/comment/:ideaId/new",
     [authJwt.verifyToken],
-    controller.create
+    controller.createComment
     );
 
     //upvote
-    app.put("/comment/upvote/:ideaId/:commId",
+    app.put("/comment/:commentId/upvote",
     [authJwt.verifyToken],
     controller.upvote
     );
 
     //downvote
-    app.put("/posts/downvote/:ideaId/:comId",
+    app.put("/comment/:commentId/downvote",
     [authJwt.verifyToken],
     controller.downvote
     );
 
     //delete
-    app.delete("/posts/delete/:ideaId/:comId",
+    app.delete("/comment/:commentId/delete",
     [authJwt.verifyToken],
     controller.delete
     );
 
-    app.get("/posts/delete/:ideaId/:comId",
+    //All comments of one user
+    app.get("/comment/user/:userId",
     [authJwt.verifyToken],
-    controller.delete
+    controller.allCommentsbyUser
     );
 
-    app.get("/posts/delete/:ideaId/:comId",
+
+    //giving back all Comments of requester
+    app.get("/comment/user/me",
     [authJwt.verifyToken],
-    controller.delete
+    controller.allCommentsbyRequester
     );
 
-    app.get("/posts/delete/:ideaId/:comId",
-    [authJwt.verifyToken],
-    controller.delete
-    );
+
 }

@@ -5,134 +5,165 @@ const Idea = db.idea;
 
 
 //New Comment under Idea
-exports.create = async (req, res) => {
+exports.createComment = async (req, res) => {
+
+    console.log("newComment")
+
     let New = req.body.newComment;
 
-    const comm = new Comment({
-        "username": New.username,
-        "userId": 0,
-        "timestamp": 0,
+    const newComment = new Comment({
+        "AuthorId": req.userId,
+        "ideaId": req.params.ideaId,
         "comment": New.comment,
         "upvotes": 0,
         "downvotes": 0
     });
 
-    await comm.save(err => {
-        if (err) {
-            return res.status(500).send({ message: err });
+  
+    newComment.save(function(err, docComment) {       //create() includes save()
+        //console.log("\n>> Created Comment:\n", docComment);
+        if(err) {
+            res.status(500).send(err);
         } else {
-            console.log(idea);
-            return res.status(200).send(idea);
+            Idea.findByIdAndUpdate(
+                req.params.ideaId,
+                { 
+                    $push: { comments: docComment._id } 
+                },
+                {
+                    new: true, useFindAndModify: false
+                }
+            )
+            .then(doc => {
+                console.log(doc);
+                res.status(200).send(docComment);
+            })
+            .catch(err => {
+                console.error(err);
+                res.status(500).send(err);
+            });
         }  
-    });
-
-    
-
-    // Idea.findByIdAndUpdate(req.params.ideaId, 
-    // { $push: {comments: comment.toObject()}},
-    // function (err, succ) {
-    //     if (err) {
-    //         return res.status(500).send({ message: err });
-    //     } else {
-    //         console.log(succ);
-    //         return res.status(200).send(succ);
-    //     }  
-    // }
-    // )
+    })
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //Upvote
 exports.upvote = (req, res) => {
+    console.log("comment upvote");
+
     var newupvotes;
     
-    // CommentIdea.findById(
-    //     "5fbed0aba1ee0b0c6a1729d6",
-    //     {upvotes: 10},
-    //     {
-    //         new: true,                       // return updated doc
-    //         runValidators: true              // validate before update
-    //     }
-    // )
-    // .then(doc => {
-    //     console.log(doc);
-    //     res.status(200).send(CommentIdea);
-    // })
-    // .catch(err => {
-    //     console.error(err);
-    //     res.status(500).send(err);
-    // });
+    Comment.findById(req.params.commentId, function(err, docs) {
+        if(err) {
+            console.log(err);
+        } else {
+            newupvotes = docs.upvotes + 1;
 
-    //-----------------
-
-    console.log(req.params.commId);
-
-    // CommentIdea.findById(req.params.ideaId, function (err, docs) { 
-    //     if (err){ 
-    //         console.log(err); 
-    //     } 
-    //     else{ 
-    //         console.log("Result : ", docs); 
-    //     } 
-    // }); 
-
-    // Idea.find(
-    //     { "comments._id": "5fbc456c50579adb7d663dc2"},
-        
-    //     (err, docs) => {
-    //         if (err){ 
-    //             console.log(err); 
-    //         } 
-    //         else{ 
-    //                console.log("Result : ", docs); 
-    //         } 
-    //     }
-    // )
-
-    // CommentIdea.find({"username": "user"}, (err, ideas) => {
-    //     if (err) {
-    //       return res.status(500).send(err);
-    //     } else {
-    //       return res.status(200).send(ideas)
-    //     }
-    //   })
-
-
-    Idea.updateOne(
-        {"_id": req.params.ideaId, "comments._id": req.params.commId},
-        {"$set": {"comments.$.upvotes": 69 } },
-        function(err, docs) {
-            if (err){ 
-                console.log(err);
+            Comment.findByIdAndUpdate(
+                req.params.commentId,
+                {
+                    $set: {upvotes: newupvotes},
+                    $push: {userUpvotes: req.userId}      //TODO provides no uniquness!!
+                },
+                {
+                    new: true,                       // return updated doc
+                    runValidators: true              // validate before update
+                }
+            )
+            .then(doc => {
+                console.log(doc);
+                res.status(200).send(Comment);
+            })
+            .catch(err => {
+                console.error(err);
                 res.status(500).send(err);
-            } 
-            else{ 
-                    console.log("Result : ", docs); 
-                    res.status(200).send(docs)
-            } 
+            });
         }
-    )
-    
+    })
 };
 
 //Downvote
 exports.downvote = (req, res) => {
+    console.log("comment downvote");
 
+    var newdownvotes;
+    
+    Comment.findById(req.params.commentId, function(err, docs) {
+        if(err) {
+            console.log(err);
+        } else {
+            newdownvotes = docs.downvotes - 1;
+
+            Comment.findByIdAndUpdate(
+                req.params.commentId,
+                {
+                    $set: {downvotes: newdownvotes},
+                    $push: {userDownvotes: req.userId}      //TODO provides no uniquness!!
+                },
+                {
+                    new: true,                       // return updated doc
+                    runValidators: true              // validate before update
+                }
+            )
+            .then(doc => {
+                console.log(doc);
+                res.status(200).send(Comment);
+            })
+            .catch(err => {
+                console.error(err);
+                res.status(500).send(err);
+            });
+        }
+    })
 };
 
 //Delete
 exports.delete = (req, res) => {
+    console.log("comment delete");
+
+    Comment.findByIdAndDelete(req.params.commentId, function(err, docs) {
+        if (err){ 
+            console.log(err) 
+        } else { 
+            Idea.findByIdAndUpdate(
+                docs.ideaId,
+                { $pull: {comments: docs._id}},
+                {useFindAndModify: false},
+                function(err) {
+                    if (err) {
+                        res.status(500).send(err);
+                        console.log(err);
+                    } else {
+                        res.status(200).send("deleted from comments and idea.comments[]")
+                    }
+                        
+                }
+            ) 
+        } 
+    }) 
+};
+ 
+//giving back all comments of username
+exports.allCommentsbyUser = (req, res) => {                     //--- untested
+    console.log("comment by user");
+
+    Comment.find(
+        {authorId: req.params.userId},
+        function (err, docs) {
+            if (err){ 
+                console.log(err); 
+                res.status(500).send(err);
+            } else { 
+                console.log(docs); 
+                res.status(200).send(docs);
+            } 
+        }
+    )
+};
+
+//giving back all Comments of requester
+exports.allCommentsbyRequester = (req, res) => {
+    console.log("comment by idea");
 
 };
+

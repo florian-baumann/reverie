@@ -24,7 +24,7 @@ export default {
     created () {
         //get idea from ideaId
         axios.get("//localhost:8081/idea/" + this.id).then(({ data }) => {
-        this.idea = data
+            this.idea = data
         });
     }
 }

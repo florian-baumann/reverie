@@ -6,13 +6,13 @@ const controller = require("../controllers/idea.controller");
 module.exports = function(app) {
 
     //upvote
-    app.put("idea/:ideaId/upsvote",
+    app.put("idea/:ideaId/upvote",
     [authJwt.verifyToken],
     controller.upvote
     );
 
     //downvote
-    app.put("idea/:ideaId/downvote",
+    app.put("/idea/:ideaId/downvote",
     [authJwt.verifyToken],
     controller.downvote
     );
@@ -24,7 +24,7 @@ module.exports = function(app) {
     );
 
     //delete
-    app.delete("/idea/delete/:ideaId",
+    app.delete("/idea/:ideaId/delete",
     [authJwt.verifyToken],
     controller.delete
     );
@@ -37,15 +37,15 @@ module.exports = function(app) {
     );
 
     //giving back all ideas of username
-    app.get("/ideas/:userId",
+    app.get("/idea/user/:username",
     [authJwt.verifyToken],
-    controller.allUserIdeas
+    controller.allIdeasbyUser
     );
 
     //giving back one specific idea from id
     app.get("/idea/:ideaId",
     [authJwt.verifyToken],
-    controller.oneIdea
+    controller.ideaById
     );
 
 }

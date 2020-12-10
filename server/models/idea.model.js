@@ -14,7 +14,6 @@ const Idea = mongoose.model(
       default: Date.now
     },
     "tags": [String],
-    "link": String,
     "head": String,
     "description": String,
 

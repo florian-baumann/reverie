@@ -78,9 +78,11 @@ exports.downvote = (req, res) => {
 //New
 exports.create = (req, res) => {
     let New = req.body.newIdea;
+
+    console.log(req.userId);
    
     const newIdea = new Idea({
-        "AuthorId": req.userId,
+        "authorId": req.userId,
         "tags": New.tags,
         "head": New.head,
         "description": New.idea,
@@ -129,13 +131,17 @@ exports.feed = (req, res) => {
   
 
  //giving back all ideas of username
-exports.allIdeasbyUser = (req, res) => {
-    Idea.find({"user.userId": req.param.userId}, (err, ideas) => {
-        if (err) {
-        return res.status(500).send(err);
-        } else {
-        return res.status(200).send(ideas)
-        }
+exports.allIdeasbyUsername = (req, res) => {
+
+    console.log("ideas by username: " + req.params.username);
+
+    Idea.find(
+        {username: req.param.username}, function (err, ideas) {
+            if (err) {
+                 res.status(500).send(err);
+            } else {
+                 res.status(200).send(ideas)
+            }
     })
 };
 

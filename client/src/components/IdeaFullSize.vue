@@ -19,10 +19,10 @@
                 <p class="display-1 text--primary" >  {{ idea.head }} </p>
 
                 <!--  Creator Name  -->
-                <p>{{idea.user.username}}</p>
+                <p>{{idea.authorId}}</p>
 
                 <!-- Idea Discription -->
-                <div class="text--primary" >  {{idea.idea}} </div>
+                <div class="text--primary" >  {{idea.description}} </div>
 
             </v-card-text>
 
@@ -176,7 +176,6 @@ export default {
         },
         sendNewComment() {
             var newComment = {
-                "username": this.user.username,
                 "comment": this.newComment,
             }
 
@@ -185,7 +184,7 @@ export default {
             axios.post("//localhost:8081/comment/" + this.idea._id + "/new", json, {
                 headers: {
                 // Overwrite Axios's automatically set Content-Type
-                'Content-Type': 'application/json'
+                'content-Type': 'application/json'
                 }
             })
                 .them(({res}) => {
@@ -202,7 +201,7 @@ export default {
             return this.$store.state.user;
         },
         isAuthor() {
-             if(this.user.username === this.idea.user.username) {
+             if(this.user._id === this.idea.authorId) {
                 return true;
             } else {
                 return false;

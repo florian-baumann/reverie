@@ -37,7 +37,7 @@ module.exports = function(app) {
 
 
     //giving back all Comments of requester
-    app.get("/comment/user/me",
+    app.get("/comment/user/",
     [authJwt.verifyToken],
     controller.allCommentsbyRequester
     );

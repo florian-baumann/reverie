@@ -39,7 +39,7 @@ module.exports = function(app) {
     //giving back all ideas of username
     app.get("/idea/user/:username",
     [authJwt.verifyToken],
-    controller.allIdeasbyUser
+    controller.allIdeasbyUsername
     );
 
     //giving back one specific idea from id

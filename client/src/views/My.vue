@@ -26,16 +26,16 @@
             <v-tab>
                 Ideas
             </v-tab>
+
             <v-tab-item>
-                
                     <IdeaCard v-for="idea in ideas" :key="idea.id" :idea="idea" />
-                
             </v-tab-item>
 
 
             <v-tab>
                 Upvotes
             </v-tab>
+
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>...coming soon ...</v-card-text>
@@ -46,6 +46,7 @@
             <v-tab>
                 About
             </v-tab>
+
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>...coming soon ...</v-card-text>
@@ -53,9 +54,6 @@
             </v-tab-item>
         
         </v-tabs>
-
-
-
 
     </v-card>
 </div>

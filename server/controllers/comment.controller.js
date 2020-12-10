@@ -12,7 +12,7 @@ exports.createComment = async (req, res) => {
     let New = req.body.newComment;
 
     const newComment = new Comment({
-        "AuthorId": req.userId,
+        "authorId": req.userId,
         "ideaId": req.params.ideaId,
         "comment": New.comment,
         "upvotes": 0,
@@ -82,6 +82,7 @@ exports.upvote = (req, res) => {
     })
 };
 
+
 //Downvote
 exports.downvote = (req, res) => {
     console.log("comment downvote");
@@ -117,6 +118,7 @@ exports.downvote = (req, res) => {
     })
 };
 
+
 //Delete
 exports.delete = (req, res) => {
     console.log("comment delete");
@@ -143,8 +145,9 @@ exports.delete = (req, res) => {
     }) 
 };
  
+
 //giving back all comments of username
-exports.allCommentsbyUser = (req, res) => {                     //--- untested
+exports.allCommentsbyUser = (req, res) => {
     console.log("comment by user");
 
     Comment.find(
@@ -161,9 +164,23 @@ exports.allCommentsbyUser = (req, res) => {                     //--- untested
     )
 };
 
+
 //giving back all Comments of requester
 exports.allCommentsbyRequester = (req, res) => {
-    console.log("comment by idea");
+    console.log("comment by Requester");
+
+    Comment.find(
+        {authorId: req.userId},
+        function (err, docs) {
+            if (err){ 
+                console.log(err); 
+                res.status(500).send(err);
+            } else { 
+                console.log(docs); 
+                res.status(200).send(docs);
+            } 
+        }
+    )
 
 };
 

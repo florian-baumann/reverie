@@ -14,10 +14,10 @@
       <p class="display-1 text--primary" >  {{ idea.head }} </p>
 
       <!--  Creator Name  -->
-      <p>{{idea.user.username}}</p>
+      <p>{{idea.authorId}}</p>
 
       <!-- Idea Discription -->
-      <div class="text--primary" >  {{idea.idea}} </div>
+      <div class="text--primary" >  {{idea.description}} </div>
 
     </v-card-text>
 

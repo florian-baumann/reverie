@@ -4,14 +4,25 @@ const User = mongoose.model(
   "User",
   new mongoose.Schema({
     username: String,
-    email: String,
     password: String,
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role"
-      }
-    ]
+    email: String,
+    karma: Number,
+    "created": {
+      type: Date,
+      default: Date.now
+    },
+    roles: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role"
+    }],
+    ideas: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Idea"
+    }],
+    comments: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
+    }]
   })
 );
 

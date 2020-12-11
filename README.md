@@ -20,9 +20,7 @@ MongoDB:
 
 start client: "npm run serve"
 
-
 start server with nodemon: "nodemon server.js"
-
 
 start mongoDB: "sudo service mongodb start"
 
@@ -31,97 +29,200 @@ status mongoDB: "service mongodb status"
 
 ## Api
 
-####GET /allideas
+Authentication:
+    POST /auth/signup
+        //SingnUp new User. Roles: user, moderator, admin
+        ->req:
+            {
+                "username": String,
+                "email": String,
+                "password": String,
+                "roles": []
+            }
+        <-res:
 
 
-    Authentication:
-        POST /auth/signup
-        SingnUp new User. Roles: user, moderator, admin
-            param:
-                {
-                    "username": String,
-                    "email": String,
-                    "password": String,
-                    "roles": []
-                }
-            return:
-                {
-                    "message": String
-                }
+    POST /auth/signin
+        //SignIn existing User
+        ->req:
+            {
+                "username": String,
+                "password": String
+            }
+        <-res: (wrong password)):
+            {
+                "accessToken": null,
+                "message": String
+            }
+        <-res: (legal account):
+            {
+                "id": String,
+                "uername": String,
+                "email": String,
+                "roles": [String],
+                "accessToken": String
+            }
 
-        POST /auth/signin
-        SignIn existing User
-            param:
-                {
-                    "username": String,
-                    "password": String
-                }
-            return (wrong password)):
-                {
-                    "accessToken": null,
-                    "message": String
-                }
-            return (legal account):
-                {
-                    "id": String,
-                    "uername": String,
-                    "email": String,
-                    "roles": [String],
-                    "accessToken": String
-                }
+    POST /auth/logut                ? ? ? ?
+        //Log user out, delete accessToken
+        ->req:
+            {
+                "username": String
+            }
+        return:
+            {
+                "message": String
+            }
 
-        POST /auth/logut        ! ! ! MISSING ! ! !
-        Log user out, delete accessToken
-            param:
-                {
-                    "username": String
-                }
-            return:
-                {
-                    "message": String
-                }
+Authorization:
 
-    Authorization:
+    GET /test/all
+        //returns Public Content
+        
+    GET /test/user 
+        //for loggedin users (user/moderator/admin)
 
-        GET /test/all
-        returns Public Content
-            param:
-                {
+    GET /test/mod 
+        //for moderator
 
+    GET /test/admin 
+        //for admin
+
+
+Ideas:
+
+    POST: /idea/new 
+        //creating new idea
+        ->req:
+            {
+                "newIdea": {
+                    "tags": [String],
+                    "head": String,
+                    "idea": String
                 }
-            return:
-                {
+            }
 
-                }
-        GET /test/user for loggedin users (user/moderator/admin)
-            param:
-                Head:
-                    x-access-token: Sting
-                
-            returns 
-                {
+        res:
+            xxx
 
-                }
+    DELETE: /idea/:ideaId/delete
+    //delete of Idea with ideaId
 
-        GET /test/mod for moderator
-            param:
-                Head:
-                    x-access-token: Sting
-                
-            returns 
-                {
-                    
-                }
+    PUT: /idea/:ideaId/upvote
+    //one downvote of Idea with ideaId
+    
+    PUT: /idea/:ideaId/downvote
+        //one downvote of Idea with ideaId
 
-        GET /test/admin for admin
-            param:
-                Head:
-                    x-access-token: Sting
-                
-            returns 
-                {
-                    
-                }
+    GET: /idea/feed
+        //all existing Ideas 
+        <-res: 
+            [{
+                "_id": String,
+                "authorId": String,
+                "created": {Date,
+                "tags": [String],
+                "head": String,
+                "description": String,
+                "upvotes": Number,
+                "userUpvotes": [String],
+                "downvotes": Number,
+                "userDownvotes": [String],
+                "comments": [String] 
+            }]
+
+    GET: /idea/user/:username
+        //ideas of User with username
+        <-res: 
+            [{
+                "_id": String,
+                "authorId": String,
+                "created": {Date,
+                "tags": [String],
+                "head": String,
+                "description": String,
+                "upvotes": Number,
+                "userUpvotes": [String],
+                "downvotes": Number,
+                "userDownvotes": [String],
+                "comments": [String] 
+            }]
+
+    GET: /idea/:ideaId
+        //idea  with comments from IdeaId
+        <-res: 
+            [{
+                "_id": String,
+                "authorId": String,
+                "created": {Date,
+                "tags": [String],
+                "head": String,
+                "description": String,
+                "upvotes": Number,
+                "userUpvotes": [String],
+                "downvotes": Number,
+                "userDownvotes": [String],
+                "comments": [{
+                    "_id": String,
+                    "authorId": String,
+                    "ideaId": String,
+                    "created": Date,
+                    "comment": String,
+                    "upvotes": Number,
+                    "userUpvotes": [String],
+                    "downvotes": Number,
+                    "userDownvotes": [String]
+                }] 
+            }]
+
+
+Comment:
+
+    POST: /comment/:ideaId/new
+        //new Comment on Idea with iderId
+        ->req: 
+            {
+                "newComment": String
+            }
+
+    DELETE: /comment/:commentId/delete
+        //delete Comment with commentId
+
+    PUT: /comment/:commentId/upvote
+        //one upvote of Comment with commentId
+
+    PUT: /comment/:commentId/downvote
+        //one downvote of Comment with commentId
+
+    GET: /comment/user/:userId
+        //all comments of of user with UserId
+        <-res:
+            {
+                "_id": String,
+                "authorId": String,
+                "ideaId": String,
+                "created": Date,
+                "comment": String,
+                "upvotes": Number,
+                "userUpvotes": [String],
+                "downvotes": Number,
+                "userDownvotes": [String]
+            }
+
+    GET: /comment/user
+        //all Comments of Requester with req.userId
+        <-res:
+            {
+                "_id": String,
+                "authorId": String,
+                "ideaId": String,
+                "created": Date,
+                "comment": String,
+                "upvotes": Number,
+                "userUpvotes": [String],
+                "downvotes": Number,
+                "userDownvotes": [String]
+            }
 
 
 

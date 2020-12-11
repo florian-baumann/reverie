@@ -15,12 +15,10 @@ const Idea = mongoose.model(
     "head": String,
     "description": String,
 
-    "upvotes": Number,
     "userUpvotes": [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     }],
-    "downvotes": Number,
     "userDownvotes": [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

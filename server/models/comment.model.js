@@ -16,12 +16,10 @@ const Comment =  mongoose.model(
             default: Date.now
         },
         "comment": String,
-        "upvotes": Number,
         "userUpvotes": [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         }],
-        "downvotes": Number,
         "userDownvotes": [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"

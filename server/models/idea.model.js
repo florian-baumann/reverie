@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
 
-
-
 const Idea = mongoose.model(
   "Idea",
   new mongoose.Schema({
-    "authorId": {
+    "author": {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     },
@@ -20,12 +18,12 @@ const Idea = mongoose.model(
     "upvotes": Number,
     "userUpvotes": [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     }],
     "downvotes": Number,
     "userDownvotes": [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     }],
 
     "comments": [{

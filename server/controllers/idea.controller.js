@@ -6,8 +6,9 @@ const User = db.user;
 //Upvote
 exports.upvote = (req, res) => {
 
-    var newupvotes;
+    console.log(">>idea upvotes");
 
+    var newupvotes;
     
     Idea.findById(req.params.ideaId, function(err, docs) {
         if(err) {
@@ -19,7 +20,7 @@ exports.upvote = (req, res) => {
                 req.params.ideaId,
                 {
                     $set: {upvotes: newupvotes},
-                    $push: {userUpvotes: req.userId}
+                    $addToSet: {userUpvotes: req.userId}
                 },
                 {
                     new: true,                       // return updated doc
@@ -27,8 +28,8 @@ exports.upvote = (req, res) => {
                 }
             )
             .then(doc => {
-                console.log(doc);
-                res.status(200).send(Idea);
+                console.log(">>upvoted: " + req.params.ideaId);
+                res.status(200).send(">>upvoted: " + req.params.ideaId);
             })
             .catch(err => {
                 console.error(err);
@@ -38,8 +39,9 @@ exports.upvote = (req, res) => {
     })
 };
 
-// //Downvote
+//Downvote
 exports.downvote = (req, res) => {
+    console.log(">>idea downvote");
 
     var newdownvotes;
     
@@ -61,8 +63,8 @@ exports.downvote = (req, res) => {
                 }
             )
             .then(doc => {
-                console.log(doc);
-                res.status(200).send(Idea);
+                console.log(">>downvoted: " + req.params.ideaId);
+                res.status(200).send(">>downvoted: " + req.params.ideaId);
             })
             .catch(err => {
                 console.error(err);
@@ -82,7 +84,7 @@ exports.create = (req, res) => {
     console.log(req.userId);
    
     const newIdea = new Idea({
-        "authorId": req.userId,
+        "author": req.userId,
         "tags": New.tags,
         "head": New.head,
         "description": New.idea,
@@ -103,8 +105,6 @@ exports.create = (req, res) => {
 
 //Delete
 exports.delete = (req, res) => {
-    
-    
 
     Idea.findByIdAndDelete(req.params.ideaId)
         .then(response => {
@@ -127,6 +127,7 @@ exports.feed = (req, res) => {
           return res.status(200).send(idea)
         }
       })
+      .populate("author");
 };
   
 
@@ -136,13 +137,15 @@ exports.allIdeasbyUsername = (req, res) => {
     console.log("ideas by username: " + req.params.username);
 
     Idea.find(
-        {username: req.param.username}, function (err, ideas) {
+        {username: req.param.username}, (err, ideas) => {
             if (err) {
                  res.status(500).send(err);
             } else {
                  res.status(200).send(ideas)
             }
     })
+    .populate("author");
+    
 };
 
 
@@ -163,5 +166,7 @@ exports.ideaById = (req, res) => {
               return res.status(200).send(curr);
             }
         })
-        .populate("comments");
+        .populate("comments")
+        .populate("author");
+        
 };

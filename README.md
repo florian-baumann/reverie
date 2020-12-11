@@ -29,6 +29,8 @@ status mongoDB: "service mongodb status"
 
 ## Api
 
+
+
 Authentication:
     POST /auth/signup
         //SingnUp new User. Roles: user, moderator, admin
@@ -119,7 +121,7 @@ Ideas:
         <-res: 
             [{
                 "_id": String,
-                "authorId": String,
+                "author": String,
                 "created": {Date,
                 "tags": [String],
                 "head": String,
@@ -136,7 +138,7 @@ Ideas:
         <-res: 
             [{
                 "_id": String,
-                "authorId": String,
+                "author": String,
                 "created": {Date,
                 "tags": [String],
                 "head": String,
@@ -153,7 +155,7 @@ Ideas:
         <-res: 
             [{
                 "_id": String,
-                "authorId": String,
+                "author": String,
                 "created": {Date,
                 "tags": [String],
                 "head": String,
@@ -164,7 +166,7 @@ Ideas:
                 "userDownvotes": [String],
                 "comments": [{
                     "_id": String,
-                    "authorId": String,
+                    "author": String,
                     "ideaId": String,
                     "created": Date,
                     "comment": String,
@@ -199,7 +201,7 @@ Comment:
         <-res:
             {
                 "_id": String,
-                "authorId": String,
+                "author": String,
                 "ideaId": String,
                 "created": Date,
                 "comment": String,
@@ -214,7 +216,7 @@ Comment:
         <-res:
             {
                 "_id": String,
-                "authorId": String,
+                "author": String,
                 "ideaId": String,
                 "created": Date,
                 "comment": String,

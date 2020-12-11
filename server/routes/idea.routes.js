@@ -6,7 +6,7 @@ const controller = require("../controllers/idea.controller");
 module.exports = function(app) {
 
     //upvote
-    app.put("idea/:ideaId/upvote",
+    app.put("/idea/:ideaId/upvote",
     [authJwt.verifyToken],
     controller.upvote
     );

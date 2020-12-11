@@ -12,7 +12,7 @@ exports.createComment = async (req, res) => {
     let New = req.body.newComment;
 
     const newComment = new Comment({
-        "authorId": req.userId,
+        "author": req.userId,
         "ideaId": req.params.ideaId,
         "comment": New.comment,
         "upvotes": 0,
@@ -151,7 +151,7 @@ exports.allCommentsbyUser = (req, res) => {
     console.log("comment by user");
 
     Comment.find(
-        {authorId: req.params.userId},
+        {author: req.params.userId},
         function (err, docs) {
             if (err){ 
                 console.log(err); 
@@ -162,6 +162,7 @@ exports.allCommentsbyUser = (req, res) => {
             } 
         }
     )
+    .populate("author");
 };
 
 
@@ -170,7 +171,7 @@ exports.allCommentsbyRequester = (req, res) => {
     console.log("comment by Requester");
 
     Comment.find(
-        {authorId: req.userId},
+        {author: req.userId},
         function (err, docs) {
             if (err){ 
                 console.log(err); 
@@ -181,6 +182,6 @@ exports.allCommentsbyRequester = (req, res) => {
             } 
         }
     )
-
+    .populate("author");
 };
 

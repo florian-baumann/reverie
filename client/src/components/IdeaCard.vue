@@ -14,7 +14,7 @@
       <p class="display-1 text--primary" >  {{ idea.head }} </p>
 
       <!--  Creator Name  -->
-      <p>{{idea.authorId}}</p>
+      <p>{{idea.author.username}}</p>
 
       <!-- Idea Discription -->
       <div class="text--primary" >  {{idea.description}} </div>

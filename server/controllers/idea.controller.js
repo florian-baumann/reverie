@@ -8,70 +8,50 @@ exports.upvote = (req, res) => {
 
     console.log(">>idea upvotes");
 
-    var newupvotes;
-    
-    Idea.findById(req.params.ideaId, function(err, docs) {
-        if(err) {
-            console.log(err);
-        } else {
-            newupvotes = docs.upvotes + 1;
-
-            Idea.findByIdAndUpdate(
-                req.params.ideaId,
-                {
-                    $set: {upvotes: newupvotes},
-                    $addToSet: {userUpvotes: req.userId}
-                },
-                {
-                    new: true,                       // return updated doc
-                    runValidators: true              // validate before update
-                }
-            )
-            .then(doc => {
-                console.log(">>upvoted: " + req.params.ideaId);
-                res.status(200).send(">>upvoted: " + req.params.ideaId);
-            })
-            .catch(err => {
-                console.error(err);
-                res.status(500).send(err);
-            });
+    Idea.findByIdAndUpdate(
+        req.params.ideaId,
+        {
+            $set: {upvotes: newupvotes},
+            $addToSet: {userUpvotes: req.userId}
+        },
+        {
+            new: true,                       // return updated doc
+            runValidators: true              // validate before update
         }
+    )
+    .then(doc => {
+        console.log(">>upvoted: " + req.params.ideaId);
+        res.status(200).send(">>upvoted: " + req.params.ideaId);
     })
+    .catch(err => {
+        console.error(err);
+        res.status(500).send(err);
+    });
 };
 
 //Downvote
 exports.downvote = (req, res) => {
     console.log(">>idea downvote");
 
-    var newdownvotes;
-    
-    Idea.findById(req.params.ideaId, function(err, docs) {
-        if(err) {
-            console.log(err);
-        } else {
-            newdownvotes = docs.downvotes - 1;
-
-            Idea.findByIdAndUpdate(
-                req.params.ideaId,
-                {
-                    $set: {downvotes: newdownvotes},
-                    $push: {userDownvotes: req.userId}      //TODO provides no uniquness!!
-                },
-                {
-                    new: true,                       // return updated doc
-                    runValidators: true              // validate before update
-                }
-            )
-            .then(doc => {
-                console.log(">>downvoted: " + req.params.ideaId);
-                res.status(200).send(">>downvoted: " + req.params.ideaId);
-            })
-            .catch(err => {
-                console.error(err);
-                res.status(500).send(err);
-            });
+    Idea.findByIdAndUpdate(
+        req.params.ideaId,
+        {
+            $set: {downvotes: newdownvotes},
+            $addToSet: {userDownvotes: req.userId}      
+        },
+        {
+            new: true,                       // return updated doc
+            runValidators: true              // validate before update
         }
+    )
+    .then(doc => {
+        console.log(">>downvoted: " + req.params.ideaId);
+        res.status(200).send(">>downvoted: " + req.params.ideaId);
     })
+    .catch(err => {
+        console.error(err);
+        res.status(500).send(err);
+    });
 };
 
 

@@ -31,7 +31,9 @@
                 <div v-if="isUpvoted">
                     <v-btn icon> <v-icon>mdi-arrow-up-drop-circle</v-icon> </v-btn>
                 </div>
-                    {{this.comment.upvotes + this.comment.downvotes}} 
+
+
+                    {{this.comment.userUpvotes.length - this.comment.userDownvotes.length}} <!-- summary votes -->
 
 
                 <!--  Downvote Button -->
@@ -61,7 +63,9 @@ export default {
     data() {
         return {
             isUpvoted: false,
-            isDownvoted: false
+            isDownvoted: false,
+            //upvotes: this.getUpvotes,
+            //downvotes: this.getDownvotes
         }
     },
     methods:{
@@ -73,10 +77,11 @@ export default {
                 (error) => {
                     console.log(error);
                 });
-                //update local comment instance
-                this.comment.upvotes += 1;
-                this.isUpvoted = true;
-            },
+            //update local comment instance
+            //this.upvotes += 1;
+            this.comment.userUpvotes.push("locally");
+            this.isUpvoted = true;
+        },
         downvote(commentId){
             axios.put("//localhost:8081/comment/" + commentId + "/downvote")
                 .then(({ res }) => {
@@ -86,11 +91,23 @@ export default {
                     console.log(error);
             });
             //update local comment instance
-            this.comment.downvotes -= 1;
+            //this.downvotes += 1;
+            this.comment.userDownvotes.push("locally");
             this.isDownvoted = true;
 
         }
-    }
+    }//,
+    // computed: {
+    //   upvotes() {
+            
+    //         return this.comment.userUpvotes.length
+            
+    //     },
+    //     downvotes() {
+            
+    //         return  this.comment.userDownvotes.length
+    //     }
+    // }
     
 }
 </script>

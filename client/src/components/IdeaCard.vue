@@ -34,7 +34,9 @@
       <div v-if="isUpvoted">
         <v-btn icon> <v-icon>mdi-arrow-up-drop-circle</v-icon> </v-btn>
       </div>
-        {{this.idea.upvotes + this.idea.downvotes}} 
+
+
+      {{this.idea.userUpvotes.length - this.idea.userDownvotes.length}} <!-- summary votes -->
 
 
       <!--  Downvote Button -->
@@ -96,7 +98,8 @@ export default {
             console.log(error);
         });
         //update der lokalen idea instanz! nicht dr server version!
-        this.idea.upvotes += 1;
+        //this.upvotes += 1;
+        this.idea.userUpvotes.push("locally");
         this.isUpvoted = true;
         },
       downvote(postId){
@@ -108,10 +111,20 @@ export default {
             console.log(error);
         });
       //update der lokalen idea instanz! nicht dr server version!
-      this.idea.downvotes -= 1;
+      //this.downvotes -= 1;
+      this.idea.userDownvotes.push("locally");
       this.isDownvoted = true;
       }
     },
+    // computed: {
+    //   // upvotes() {
+    //   //       return this.idea.userUpvotes.length
+            
+    //   //   },
+    //   //   downvotes() {
+    //   //       return this.idea.userDownvotes.length
+    //   //   }
+    // }
     
     
 }

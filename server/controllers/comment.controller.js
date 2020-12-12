@@ -49,13 +49,12 @@ exports.createComment = async (req, res) => {
 
 //Upvote
 exports.upvote = (req, res) => {
-    console.log("comment upvote");
+    console.log(">>comment upvote");
 
     Comment.findByIdAndUpdate(
         req.params.commentId,
         {
-            $set: {upvotes: newupvotes},
-            $push: {userUpvotes: req.userId}
+            $addToSet: {userUpvotes: req.userId}
         },
         {
             new: true,                       // return updated doc
@@ -63,8 +62,8 @@ exports.upvote = (req, res) => {
         }
     )
     .then(doc => {
-        console.log(doc);
-        res.status(200).send(Comment);
+        console.log("   >>upvoted Comment: " + req.params.commentId);
+        res.status(200).send(">>upvoted Comment: " + req.params.commentId);
     })
     .catch(err => {
         console.error(err);
@@ -75,13 +74,12 @@ exports.upvote = (req, res) => {
 
 //Downvote
 exports.downvote = (req, res) => {
-    console.log("comment downvote");
+    console.log(">>comment downvote");
 
     Comment.findByIdAndUpdate(
         req.params.commentId,
         {
-            $set: {downvotes: newdownvotes},
-            $push: {userDownvotes: req.userId}
+            $addToSet: {userDownvotes: req.userId}
         },
         {
             new: true,                       // return updated doc
@@ -89,8 +87,8 @@ exports.downvote = (req, res) => {
         }
     )
     .then(doc => {
-        console.log(doc);
-        res.status(200).send(Comment);
+        console.log("   >>downvoted Comment: " + req.params.commentId);
+        res.status(200).send(">>downvoted Comment: " + req.params.commentId);
     })
     .catch(err => {
         console.error(err);

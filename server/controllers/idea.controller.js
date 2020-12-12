@@ -11,7 +11,6 @@ exports.upvote = (req, res) => {
     Idea.findByIdAndUpdate(
         req.params.ideaId,
         {
-            $set: {upvotes: newupvotes},
             $addToSet: {userUpvotes: req.userId}
         },
         {
@@ -20,8 +19,8 @@ exports.upvote = (req, res) => {
         }
     )
     .then(doc => {
-        console.log(">>upvoted: " + req.params.ideaId);
-        res.status(200).send(">>upvoted: " + req.params.ideaId);
+        console.log("   >>upvoted Idea: " + req.params.ideaId);
+        res.status(200).send(">>upvoted Idea: " + req.params.ideaId);
     })
     .catch(err => {
         console.error(err);
@@ -36,7 +35,6 @@ exports.downvote = (req, res) => {
     Idea.findByIdAndUpdate(
         req.params.ideaId,
         {
-            $set: {downvotes: newdownvotes},
             $addToSet: {userDownvotes: req.userId}      
         },
         {
@@ -45,8 +43,8 @@ exports.downvote = (req, res) => {
         }
     )
     .then(doc => {
-        console.log(">>downvoted: " + req.params.ideaId);
-        res.status(200).send(">>downvoted: " + req.params.ideaId);
+        console.log("   >>downvoted Idea: " + req.params.ideaId);
+        res.status(200).send(">>downvoted Idea: " + req.params.ideaId);
     })
     .catch(err => {
         console.error(err);

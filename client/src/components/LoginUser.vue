@@ -15,9 +15,11 @@
         <v-text-field
           v-model="password"
           label="Password"
+          type="password"
           placeholder="xxx"
           outlined ></v-text-field>
       </v-card-text>
+
       <p v-if="status === 400">Invalid login info.</p>
 
       <v-btn

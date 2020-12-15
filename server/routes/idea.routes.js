@@ -43,9 +43,15 @@ module.exports = function(app) {
     );
 
     //giving back one specific idea from id
-    app.get("/idea/:ideaId",
+    app.get("/idea/id/:ideaId/",
     [authJwt.verifyToken],
     controller.ideaById
+    );
+
+    //giving back feed (all existing Ideas)
+    app.get("/idea/feedpag",
+    [authJwt.verifyToken],
+    controller.feedpag
     );
 
 }

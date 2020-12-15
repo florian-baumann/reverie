@@ -120,8 +120,11 @@ Ideas:
         //all existing Ideas 
         <-res: 
             [{
-                "_id": String,
-                "author": String,
+                "id": String,
+                "author": {
+                    "_id": String,
+                    "username": String
+                },
                 "created": {Date,
                 "tags": [String],
                 "head": String,
@@ -137,8 +140,11 @@ Ideas:
         //ideas of User with username
         <-res: 
             [{
-                "_id": String,
-                "author": String,
+                "id": String,
+                "author": {
+                    "_id": String,
+                    "username": String
+                },
                 "created": {Date,
                 "tags": [String],
                 "head": String,
@@ -154,8 +160,11 @@ Ideas:
         //idea  with comments from IdeaId
         <-res: 
             [{
-                "_id": String,
-                "author": String,
+                "id": String,
+                "author": {
+                    "_id": String,
+                    "username": String
+                },
                 "created": {Date,
                 "tags": [String],
                 "head": String,
@@ -200,7 +209,7 @@ Comment:
         //all comments of of user with UserId
         <-res:
             {
-                "_id": String,
+                "id": String,
                 "author": String,
                 "ideaId": String,
                 "created": Date,
@@ -215,7 +224,7 @@ Comment:
         //all Comments of Requester with req.userId
         <-res:
             {
-                "_id": String,
+                "id": String,
                 "author": String,
                 "ideaId": String,
                 "created": Date,

@@ -23,7 +23,7 @@ export default {
     },
     created () {
         //get idea from ideaId
-        axios.get("//localhost:8081/idea/" + this.id).then(({ data }) => {
+        axios.get("//localhost:8081/idea/id/" + this.id).then(({ data }) => {
             this.idea = data
         });
     }

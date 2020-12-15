@@ -23,7 +23,7 @@
 
                 <!--  Upvote Button -->
                 <div v-if="!isUpvoted && !isDownvoted">
-                    <v-btn v-on:click="upvote(comment._id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
+                    <v-btn v-on:click="upvote(comment.id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
                 </div>
                 <div v-if="isDownvoted"><!-- only disabled the function call-->
                     <v-btn icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
@@ -38,7 +38,7 @@
 
                 <!--  Downvote Button -->
                 <div v-if="!isUpvoted && !isDownvoted ">
-                    <v-btn v-on:click="downvote(comment._id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
+                    <v-btn v-on:click="downvote(comment.id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
                 </div>
                 <div v-if="isUpvoted"><!-- only disabled the function call-->
                     <v-btn icon> <v-icon>mdi-menu-down</v-icon> </v-btn>

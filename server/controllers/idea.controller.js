@@ -59,9 +59,9 @@ exports.downvote = (req, res) => {
 exports.create = (req, res) => {
     let New = req.body.newIdea;
 
-    console.log(req.userId);
+    console.log("User: " + req.userId + "will create: " + New);
    
-    const newIdea = new Idea({
+    const idea = new Idea({
         "author": req.userId,
         "tags": New.tags,
         "head": New.head,
@@ -71,14 +71,23 @@ exports.create = (req, res) => {
         "comments": []
     });
 
-    newIdea.save(err => {
-        if (err) {
-            return res.status(500).send({ message: err });
-        } else {
-            console.log(newIdea);
-            return res.status(200).send(newIdea);
-        }  
-    });
+    idea.save(idea)
+    .then((data) => {
+        res.status(200).send(idea);
+    })
+    .catch((err) => {
+        res.status(500).send(err);
+    })
+        
+        
+    //     err => {
+    //     if (err) {
+    //         return res.status(500).send({ message: err });
+    //     } else {
+    //         console.log(newIdea);
+    //         return res.status(200).send(idea);
+    //     }  
+    // });
 }
 
 //Delete
@@ -105,7 +114,7 @@ exports.feed = (req, res) => {
           return res.status(200).send(idea)
         }
       })
-      .populate("author");
+      .populate("author", "username");
 };
   
 
@@ -122,29 +131,66 @@ exports.allIdeasbyUsername = (req, res) => {
                  res.status(200).send(ideas)
             }
     })
-    .populate("author");
+    .populate("author", "username");
     
 };
 
 
 //sends one idea with comments from mongodb with id
 exports.ideaById = (req, res) => {
-        // Idea
-        //     .findById(req.params.ideaId)
-        //     .populate("comments")
-        //     .then (temp => {
-        //         res.json(temp);
-        //     })
 
-        Idea.findById(req.params.ideaId, (err, curr) => {
-            if(err) {
-              return res.status(500).send(err);
-            } else {
-              //console.log(curr);
-              return res.status(200).send(curr);
-            }
-        })
-        .populate("comments")
-        .populate("author");
-        
+    console.log(">> idea by id: " + req.params.ideaId);
+
+    Idea.findById(req.params.ideaId, (err, idea) => {
+        if(err) {
+            return res.status(500).send(err);
+        } else {
+            //console.log(idea);
+            return res.status(200).send(idea);
+        }
+    })
+    .populate("comments") 
+    .populate("author", "username")
 };
+
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+const getPagination = (page, size) => {
+    const limit = size ? +size : 3;
+    const offset = page ? page * limit : 0;
+  
+    return { limit, offset };
+};
+  
+// Retrieve all Tutorials from the database.
+exports.feedpag = (req, res) => {
+    const { page, size } = req.query;
+    console.log(req.query)
+    const { limit, offset } = getPagination(page, size);
+  
+    Idea.paginate({}, { offset, limit })            //condition in {] if needed
+      .then((data) => {
+        res.send({data});
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials.",
+        });
+      });
+  };
+
+
+//giving back feed (all existing Ideas)
+// exports.feedpag = (req, res) => {
+//     Idea.find((err, idea) => {
+//         if (err) {
+//           return res.status(500).send(err);
+//         } else {
+
+//           return res.status(200).send(idea)
+//         }
+//       })
+//       .populate("author", "username");
+// };

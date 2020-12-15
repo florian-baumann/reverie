@@ -26,7 +26,7 @@
 
       <!--  Upvote Button -->
       <div v-if="!isUpvoted && !isDownvoted">
-        <v-btn v-on:click="upvote(idea._id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
+        <v-btn v-on:click="upvote(idea.id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
       </div>
       <div v-if="isDownvoted"><!-- only disabled the function call-->
         <v-btn icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
@@ -41,7 +41,7 @@
 
       <!--  Downvote Button -->
       <div v-if="!isUpvoted && !isDownvoted ">
-        <v-btn v-on:click="downvote(idea._id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
+        <v-btn v-on:click="downvote(idea.id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
       </div>
       <div v-if="isUpvoted"><!-- only disabled the function call-->
         <v-btn icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
@@ -52,7 +52,7 @@
 
 
       <!-- comment Button -->
-      <v-btn icon :to="{name: 'Idea', params: {id: idea._id}}">
+      <v-btn icon :to="{name: 'Idea', params: {id: idea.id}}">
         <v-badge :content="idea.comments.length" color="#45443E" overlap dark>
           <v-icon>mdi-comment-outline</v-icon>
         </v-badge>
@@ -63,7 +63,7 @@
       <v-btn
         text
         color="#FFFFFF"
-        :to="{name: 'Idea', params: {id: idea._id}}"
+        :to="{name: 'Idea', params: {id: idea.id}}"
       >
         Read More
       </v-btn>

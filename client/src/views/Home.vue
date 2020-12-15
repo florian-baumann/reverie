@@ -3,6 +3,16 @@
     <template v-if="ideas !== 'Loading ideas...'">
       <IdeaCard v-for="idea in ideas" :key="idea.id" :idea="idea" />
     </template>
+
+    <!--
+    <v-pagination
+            v-model="page"
+            :length="totalPages"
+            total-visible="7"
+            next-icon="mdi-menu-right"
+            prev-icon="mdi-menu-left"
+            @input="handlePageChange"
+          ></v-pagination> -->
   </div>
 </template>
 

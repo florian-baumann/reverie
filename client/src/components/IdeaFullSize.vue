@@ -31,7 +31,7 @@
 
                 <!--  Upvote Button -->
                 <div v-if="!isUpvoted && !isDownvoted">
-                    <v-btn v-on:click="upvote(idea._id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
+                    <v-btn v-on:click="upvote(idea.id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
                 </div>
                 <div v-if="isDownvoted"><!-- only disabled the function call-->
                     <v-btn icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
@@ -46,7 +46,7 @@
 
                 <!--  Downvote Button -->
                 <div v-if="!isUpvoted && !isDownvoted ">
-                    <v-btn v-on:click="downvote(idea._id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
+                    <v-btn v-on:click="downvote(idea.id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
                 </div>
                 <div v-if="isUpvoted"><!-- only disabled the function call-->
                     <v-btn icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
@@ -107,14 +107,14 @@
 
                 <!-- delete button -->
                 <div v-if="isAuthor">
-                    <v-btn v-on:click="delt(idea._id)" icon> <v-icon>mdi-delete</v-icon> </v-btn>
+                    <v-btn v-on:click="delt(idea.id)" icon> <v-icon>mdi-delete</v-icon> </v-btn>
                 </div>
                 
             </v-card-actions>
         </v-card>
 
 
-        <div v-for="comment in this.idea.comments" :key="comment._id"> 
+        <div v-for="comment in this.idea.comments" :key="comment.id"> 
             <CommentFullSize v-bind:comment="comment"></CommentFullSize>
         </div>
             
@@ -185,7 +185,7 @@ export default {
 
             const json = JSON.stringify({ newComment });
 
-            axios.post("//localhost:8081/comment/" + this.idea._id + "/new", json, {
+            axios.post("//localhost:8081/comment/" + this.idea.id + "/new", json, {
                 headers: {
                 // Overwrite Axios's automatically set Content-Type
                 'content-Type': 'application/json'
@@ -205,7 +205,7 @@ export default {
             return this.$store.state.user;
         },
         isAuthor() {
-             if(this.user._id === this.idea.author._id) {
+             if(this.user.id === this.idea.author.id) {
                 return true;
             } else {
                 return false;

@@ -38,14 +38,7 @@
         </v-list-item>
         
         
-        <v-list-item link to="">
-          <v-list-item-action>
-            <v-icon color="#F3F348">mdi-email</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        
 
         <v-list-item link to="/values">
           <v-list-item-action>
@@ -56,6 +49,8 @@
           </v-list-item-content>
         </v-list-item>
 
+
+<!--
         <v-list-item link to="/values">
           <v-list-item-action>
             <v-icon color="#F3F348">mdi-tools</v-icon>
@@ -65,11 +60,20 @@
           </v-list-item-content>
         </v-list-item>
 
+-->
+
+        <v-list-item link to="/contact">
+          <v-list-item-action>
+            <v-icon color="#F3F348">mdi-email</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Contact</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         
       </v-list>
 
-      
-
+    
       <template v-slot:append v-if="user">
         <div class="pa-2" >
           <v-list-item link to="/" @click="logout">

@@ -46,6 +46,15 @@
                 <div v-if="isDownvoted">
                     <v-btn icon> <v-icon>mdi-arrow-down-drop-circle</v-icon> </v-btn>
                 </div>
+
+
+                <v-spacer></v-spacer>
+
+
+                <!-- delete button -->
+                <div v-if="isAuthor">
+                    <v-btn v-on:click="delt(comment._id)" icon> <v-icon>mdi-delete</v-icon> </v-btn>
+                </div>
                 
             </v-card-actions>
         </v-card>
@@ -95,19 +104,30 @@ export default {
             this.comment.userDownvotes.push("locally");
             this.isDownvoted = true;
 
-        }
-    }//,
-    // computed: {
-    //   upvotes() {
+        },
+        delt(commentid) {
+            axios.delete("//localhost:8081/comment/" + commentid + "/delete")
+                .then(({ res }) => {
+                    console.log(res);
+                },
+                (error) => {
+                    console.log(error);
+            });
             
-    //         return this.comment.userUpvotes.length
-            
-    //     },
-    //     downvotes() {
-            
-    //         return  this.comment.userDownvotes.length
-    //     }
-    // }
+        },
+    },
+    computed: {
+        user() {
+            return this.$store.state.user;
+        },
+        isAuthor() {
+             if(this.user.id === this.comment.author) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+    }
     
 }
 </script>

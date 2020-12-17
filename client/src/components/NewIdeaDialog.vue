@@ -9,7 +9,7 @@
                 <v-row>
                     <v-col > <!-- cols="12" sm="6" md="4"  -->
                         <v-text-field
-                            label="Heading"
+                            label="Head"
                             v-model="heading"
                             counter="42" :maxlength="42"
                             required
@@ -25,7 +25,7 @@
                     <v-col cols="12" sm="9"> <!-- cols="12" sm="6" -->
                         <v-text-field
                             v-model="newHashtag"
-                            label="add at leas 5 Hashtags"
+                            label="add some tags"
                             counter="20" maxlength="20"
                             required
                         ></v-text-field>
@@ -55,7 +55,7 @@
                         name="input-7-4"
                         label="Description"
                         v-model="description"
-                        placeholder="... as precise as possible"
+                        placeholder="... "
                     ></v-textarea>
                 </v-row>
 
@@ -96,7 +96,7 @@ export default {
     return {
         heading:"",
         newHashtag: "",
-        hashtags: ["hello", "world"],
+        hashtags: [],
         description: "",
         
     } 

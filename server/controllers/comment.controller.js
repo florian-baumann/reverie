@@ -35,7 +35,7 @@ exports.createComment = async (req, res) => {
                 }
             )
             .then(doc => {
-                //console.log(doc);
+                console.log(docComment);         //gives idea
                 res.status(200).send(docComment);
             })
             .catch(err => {

@@ -73,6 +73,7 @@ exports.create = (req, res) => {
 
     idea.save(idea)
     .then((data) => {
+        console.log("User: " + req.userId + " created an idea");
         res.status(200).send(idea);
     })
     .catch((err) => {

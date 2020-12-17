@@ -191,12 +191,12 @@ export default {
                 'content-Type': 'application/json'
                 }
             })
-                .them(({res}) => {
-                    console.log(res);
-                },
-                (err) => {
-                    console.log(err);
-                });
+            .then(({res}) => {
+                console.log(res);
+            },
+            (err) => {
+                console.log(err);
+            });
         }
         
     },
@@ -205,7 +205,7 @@ export default {
             return this.$store.state.user;
         },
         isAuthor() {
-             if(this.user.id === this.idea.author.id) {
+             if(this.user.id === this.idea.author._id) {
                 return true;
             } else {
                 return false;

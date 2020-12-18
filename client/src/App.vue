@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="wrapper" style="background-color:green">
     <NavBar></Navbar>
     
   </div>
@@ -14,12 +14,12 @@ export default {
     NavBar,
   }
 }
+
+
 </script>
 
 <style>
-
-#app {
-  background-color: #c7c1a6;
-}
-
+ #app {
+   background-color: #c7c1a6;
+ }
 </style>

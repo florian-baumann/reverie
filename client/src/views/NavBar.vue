@@ -61,11 +61,14 @@
 
     </v-app-bar>
 
-    <v-content>
-      <router-view></router-view> <!-- Content -->   
 
-      
+
+    <!-- ----------------------------------------------------------------Content of router---------------------------------------------------------------------- -->
+    <v-content style="background-color:#c7c1a6">
+      <router-view></router-view> <!-- Content -->   
     </v-content> 
+    <!-- ----------------------------------------------------------------Content of router---------------------------------------------------------------------- -->
+
 
     <!-- new Idea Button-->
     <div v-if= user >
@@ -131,6 +134,7 @@ export default {
   #signup_btn {
     color: #45443e
   };
+
 
   
 </style>

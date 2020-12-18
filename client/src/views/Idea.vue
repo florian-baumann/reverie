@@ -23,7 +23,7 @@ export default {
     },
     created () {
         //get idea from ideaId
-        axios.get("//localhost:8081/idea/id/" + this.id).then(({ data }) => {
+        axios.get(process.env.VUE_APP_API_URL +"/idea/id/" + this.id).then(({ data }) => {
             this.idea = data
         });
     }

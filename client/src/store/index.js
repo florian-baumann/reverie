@@ -26,7 +26,7 @@ export default new Vuex.Store({
   actions: {
     register ({ commit }, credentials) {
       return axios
-        .post('//localhost:8081/auth/signup', credentials)
+        .post(process.env.VUE_APP_API_URL + '/auth/signup', credentials)
         .then(({ data }) => {
           console.log("data is: ", data)
           commit('SET_USER_DATA', data)
@@ -34,7 +34,7 @@ export default new Vuex.Store({
     },
     login ({ commit }, credentials) {
       return axios
-        .post('//localhost:8081/auth/signin', credentials)
+        .post(process.env.VUE_APP_API_URL +'/auth/signin', credentials)
         .then(({ data }) => {
           commit('SET_USER_DATA', data)
         })

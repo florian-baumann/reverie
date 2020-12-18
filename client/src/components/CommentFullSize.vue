@@ -79,7 +79,7 @@ export default {
     },
     methods:{
         upvote(commentId){
-            axios.put("//localhost:8081/comment/" + commentId + "/upvote")
+            axios.put(process.env.VUE_APP_API_URL + "/comment/" + commentId + "/upvote")
                 .then(({ res }) => {
                     console.log(res);
                 },
@@ -92,7 +92,7 @@ export default {
             this.isUpvoted = true;
         },
         downvote(commentId){
-            axios.put("//localhost:8081/comment/" + commentId + "/downvote")
+            axios.put(process.env.VUE_APP_API_URL + "/comment/" + commentId + "/downvote")
                 .then(({ res }) => {
                     console.log(res);
                 },
@@ -106,7 +106,7 @@ export default {
 
         },
         delt(commentid) {
-            axios.delete("//localhost:8081/comment/" + commentid + "/delete")
+            axios.delete(process.env.VUE_APP_API_URL + "/comment/" + commentid + "/delete")
                 .then(({ res }) => {
                     console.log(res);
                 },

@@ -90,7 +90,7 @@ export default {
     },
     methods:{
       upvote(postId){
-        axios.put("//localhost:8081/idea/" + postId + "/upvote")
+        axios.put(process.env.VUE_APP_API_URL + "/idea/" + postId + "/upvote")
           .then(({ res }) => {
             console.log(res);
           },
@@ -103,7 +103,7 @@ export default {
         this.isUpvoted = true;
         },
       downvote(postId){
-        axios.put("//localhost:8081/idea/" + postId + "/downvote")
+        axios.put(process.env.VUE_APP_API_URL + "/idea/" + postId + "/downvote")
           .then(({ res }) => {
             console.log(res);
           },

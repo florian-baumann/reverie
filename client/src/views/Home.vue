@@ -21,7 +21,7 @@
 <script>
 import axios from "axios";
 import IdeaCard from "../components/IdeaCard.vue";
-const config = require("..vue.config");
+
 
 export default {
   name: "Home",
@@ -58,7 +58,7 @@ export default {
         this.pageSize
       );
 
-      axios.get("//"+ config.SERVERIP + ":"+ config.SERVERPORT + "/idea/feedpag", {params}).then((response) => {
+      axios.get(process.env.VUE_APP_API_URL + "/idea/feedpag", {params}).then((response) => {
         
           this.ideas = response.data.data.docs;
           this.totalPages = response.data.data.totalPages;
@@ -95,4 +95,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+
+</style>

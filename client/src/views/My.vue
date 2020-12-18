@@ -77,7 +77,8 @@ export default {
     
     created () {
         //get all ideas from username
-        axios.get("//localhost:8081/idea/user/" + this.username).then(({ data }) => {
+        //axios.get(process.env.VUE_APP_API_URL + "/idea/user/" + this.username).then(({ data }) => {
+        axios.get(process.env.VUE_APP_API_URL + "/idea/user/me").then(({ data }) => {
         this.ideas = data;
         });
     },

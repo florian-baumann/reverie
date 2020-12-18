@@ -143,7 +143,7 @@ export default {
     },
     methods:{
         upvote(postid){
-            axios.put("//localhost:8081/idea/" + postid + "/upvote")
+            axios.put(process.env.VUE_APP_API_URL + "/idea/" + postid + "/upvote")
                 .then(({ res }) => {
                     console.log(res);
                 },
@@ -156,7 +156,7 @@ export default {
             this.isUpvoted = true;
         },
         downvote(postid){
-            axios.put("//localhost:8081/idea/" + postid + "/downvote")
+            axios.put(process.env.VUE_APP_API_URL + "/idea/" + postid + "/downvote")
                 .then(({ res }) => {
                     console.log(res);
                 },
@@ -169,7 +169,7 @@ export default {
         this.isDownvoted = true;
         },
         delt(postid) {
-            axios.delete("//localhost:8081/idea/" + postid + "/delete")
+            axios.delete(process.env.VUE_APP_API_URL + "/idea/" + postid + "/delete")
                 .then(({ res }) => {
                     console.log(res);
                 },
@@ -185,7 +185,7 @@ export default {
 
             const json = JSON.stringify({ newComment });
 
-            axios.post("//localhost:8081/comment/" + this.idea.id + "/new", json, {
+            axios.post(process.env.VUE_APP_API_URL + "/comment/" + this.idea.id + "/new", json, {
                 headers: {
                 // Overwrite Axios's automatically set Content-Type
                 'content-Type': 'application/json'

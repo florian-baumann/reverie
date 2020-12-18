@@ -106,6 +106,7 @@ exports.delete = (req, res) => {
 }
 
 //giving back feed (all existing Ideas)
+//--> old -> new : feedpag!
 exports.feed = (req, res) => {
     Idea.find((err, idea) => {
         if (err) {
@@ -119,13 +120,29 @@ exports.feed = (req, res) => {
 };
   
 
- //giving back all ideas of username
-exports.allIdeasbyUsername = (req, res) => {
+//giving back all ideas of username
+// exports.allIdeasbyUsername = (req, res) => {
+
+//     console.log("ideas by username: " + req.params.username);
+
+//     Idea.find(
+//         {username: req.param.username}, (err, ideas) => {
+//             if (err) {
+//                  res.status(500).send(err);
+//             } else {
+//                  res.status(200).send(ideas)
+//             }
+//     })
+//     .populate("author", "username");
+// };
+
+//giving back all ideas of username
+exports.allIdeasbyUser = (req, res) => {
 
     console.log("ideas by username: " + req.params.username);
 
     Idea.find(
-        {username: req.param.username}, (err, ideas) => {
+        {author: req.userId}, (err, ideas) => {
             if (err) {
                  res.status(500).send(err);
             } else {
@@ -133,7 +150,6 @@ exports.allIdeasbyUsername = (req, res) => {
             }
     })
     .populate("author", "username");
-    
 };
 
 
@@ -180,18 +196,4 @@ exports.feedpag = (req, res) => {
             err.message || "Some error occurred while retrieving tutorials.",
         });
       });
-  };
-
-
-//giving back feed (all existing Ideas)
-// exports.feedpag = (req, res) => {
-//     Idea.find((err, idea) => {
-//         if (err) {
-//           return res.status(500).send(err);
-//         } else {
-
-//           return res.status(200).send(idea)
-//         }
-//       })
-//       .populate("author", "username");
-// };
+};

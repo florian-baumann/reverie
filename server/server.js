@@ -7,7 +7,7 @@ const logger = require("./middlewares/logger.js");
 const app = express();
 
 var corsOptions = {
-  origin: "http://0.0.0.0:80"
+  origin: "http://127.0.0.1:80"
 };
 
 app.use(cors(corsOptions));

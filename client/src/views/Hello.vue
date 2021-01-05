@@ -15,7 +15,7 @@
     <v-row class="text-center">
       <v-col class="mb-4">
         <h1 class="display-2 font-weight-bold mb-3">hallo Leude</h1>
-        ich hab die letzten 7 monate was gebastelt...<br>
+        ich hab die letzten monate was gebastelt...<br>
         würde mich freuen wenn du das ganze mal bisschen testen könntest :)<br><br>
 
         das ganze ist aktuell noch ein Prototyp würde mich aber freuen wenn du mir bisschen feedback zu allem (Funktionalität, Nutzeroberfläche, Konzept, ...) geben könntest.
@@ -30,6 +30,9 @@
       </v-col>
     </v-row>
 
+    <p>
+      server: {{idea}}
+    </p>
 
 
     
@@ -37,13 +40,22 @@
 </template>
 
 <script>
+import axios from "axios";
 
 
 export default {
   name: "Hello",
-  components: {
-    
-  }
+  data(){
+    return {
+      idea: null
+    }
+  },
+  created () {
+        //get idea from ideaId
+        axios.get(process.env.VUE_APP_API_URL +"/").then(({ data }) => {
+            this.idea = data
+        });
+    }
 }
 </script>
 

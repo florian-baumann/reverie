@@ -47,7 +47,7 @@ app.use(logger);
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to my server. bitch" });
+  res.json({ message: "server online" });
 });
 
 // routes

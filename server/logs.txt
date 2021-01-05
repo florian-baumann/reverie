@@ -141,3 +141,12 @@
 [2020-12-28 14:16:6] GET:/idea/feedpag?page=0&size=3 200 0.011 ms
 [2020-12-28 14:16:27] POST:/auth/signin 200 0.004 ms
 [2020-12-28 14:16:28] GET:/idea/feedpag?page=0&size=3 200 0.008 ms
+[2021-1-5 23:5:51] GET:/undefined 200 0.09 ms
+[2021-1-5 23:5:54] GET:/undefined 200 0.008 ms
+[2021-1-5 23:6:14] GET:/api/undefined 200 0.007 ms
+[2021-1-5 23:6:16] GET:/api/undefined 200 0.004 ms
+[2021-1-5 23:6:40] GET:/undefined 200 0.005 ms
+[2021-1-5 23:6:43] GET:/%20undefined 200 0.007 ms
+[2021-1-5 23:7:6] GET:/testundefined 200 0.005 ms
+[2021-1-5 23:7:17] GET:/ 200 0.005 ms
+[2021-1-5 23:8:17] GET:/ 200 0.095 ms

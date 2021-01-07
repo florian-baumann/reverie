@@ -58,7 +58,7 @@ require("./routes/comment.routes")(app);
 
 
 // set port, listen for requests
-server const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
@@ -100,3 +100,15 @@ function initial() {
     }
   });
 }
+
+// Find 404
+app.use((req, res, next) => {
+  next(createError(404));
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+  console.error(err.message);
+  if (!err.statusCode) err.statusCode = 500;
+  res.status(err.statusCode).send(err.message);
+});

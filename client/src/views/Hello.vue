@@ -52,7 +52,7 @@ export default {
   },
   created () {
         //get idea from ideaId
-        axios.get(process.env.VUE_APP_API_URL +"/api/").then(({ data }) => {
+        axios.get(process.env.VUE_APP_API_URL +"/").then(({ data }) => {
             this.idea = data
         });
     }

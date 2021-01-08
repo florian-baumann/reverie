@@ -47,7 +47,12 @@ app.use(logger);
 
 // simple route
 app.get("/api/", (req, res) => {
-  res.json({ message: "server online" });
+  res.json({ message: "server online api" });
+});
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "server online" no api });
 });
 
 // routes

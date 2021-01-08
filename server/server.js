@@ -51,10 +51,6 @@ app.get("/", (req, res) => {
   res.json({ message: "server online"});
 });
 
-// simple route
-app.get("/api/", (req, res) => {
-  res.json({ message: "server online api"});
-});
 
 // routes
 require("./routes/auth.routes")(app);

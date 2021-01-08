@@ -45,14 +45,10 @@ db.mongoose
 //Logger Middleware ohne xxxx.routes.js
 app.use(logger);
 
-// simple route
-app.get("/api/", (req, res) => {
-  res.json({ message: "server online api" });
-});
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "server online no api"});
+  res.json({ message: "server online"});
 });
 
 // routes

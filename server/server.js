@@ -10,6 +10,12 @@ const app = express();
 //   origin: "http://localhost:80"
 // };
 
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "server online" });
+});
+
 // app.use(cors(corsOptions));
 
 app.use(cors());

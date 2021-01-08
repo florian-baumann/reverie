@@ -10,15 +10,9 @@ const app = express();
 //   origin: "http://localhost:80"
 // };
 
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "server online" });
-});
-
 // app.use(cors(corsOptions));
 
-//app.use(cors());
+app.use(cors());
 
 
 // parse requests of content-type - application/json
@@ -52,7 +46,7 @@ db.mongoose
 app.use(logger);
 
 // simple route
-app.get("/", (req, res) => {
+app.get("/api/", (req, res) => {
   res.json({ message: "server online" });
 });
 

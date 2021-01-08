@@ -12,7 +12,7 @@ const app = express();
 
 // app.use(cors(corsOptions));
 
-app.use(cors());
+//app.use(cors());
 
 
 // parse requests of content-type - application/json

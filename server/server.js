@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 // app.use(cors(corsOptions));
 
-app.use(cors());
+//app.use(cors());
 
 
 // parse requests of content-type - application/json

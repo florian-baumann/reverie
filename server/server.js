@@ -6,13 +6,13 @@ const logger = require("./middlewares/logger.js");
 
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:80"
-};
+// var corsOptions = {
+//   origin: "http://localhost:80"
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
-//app.use(cors());
+app.use(cors());
 
 
 // parse requests of content-type - application/json

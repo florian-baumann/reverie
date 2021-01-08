@@ -52,7 +52,7 @@ app.get("/api/", (req, res) => {
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "server online" no api });
+  res.json({ message: "server online no api"});
 });
 
 // routes

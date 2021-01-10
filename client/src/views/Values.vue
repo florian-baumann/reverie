@@ -14,8 +14,8 @@
 
 <br><br>
         <h1>Transparancy</h1>
-        growing Brand growing Transparancy. You have a Question, ask! We will alsways let you know about the current numbers, give you a working api. 
-        We dont care about from which grubby website you came from, We will not track you with cookies. The only thing we will save on your device is for Login, nothing more.
+        growing Brand growing Transparancy. You have a Question, ask! We will alsways let you know about the current situation, give you a working api. 
+        We dont care about from which grubby website you came from, We will not track you with cookies. The only coockies we will save on your device is for Login, nothing more.
 
 <br><br>
         <h1>OpenSource</h1>
@@ -24,7 +24,7 @@
 
 <br><br>
         <h1>Critic</h1>
-        You are a security researcher and found security issues? PLEASE let us know. We appreciate helping and growing togther, of caouse we try to compensate your efforts fair.
+        You are a security researcher and found security issues? Please let us know. We appreciate helping and growing togther, of caouse we try to compensate your efforts fair.
         You found an uanagemessenen Post? Please report it.
         
         <br><br>
@@ -37,8 +37,8 @@
         (to all ou americans: we dont want to discribe every distance with bodyparts, so use the metric system)
 
 <br><br>
-        <h1>One Species: Homosapiens</h1>
-        No Religion, No Color, No xxx. We, on this planet are all HUMANS. Be friendly we dont care about your language your culture your religion. Be friendly. Grow together. Make this world a better one.
+        <h1>One Species</h1>
+        No Religion, No Color, No xxx. We, on this planet are all humans. Be friendly we dont care about your language your culture your religion. Be friendly. Grow together. Make this world a better one.
 
 <br><br>
         <h1>have fun</h1>

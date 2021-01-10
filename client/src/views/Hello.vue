@@ -24,11 +24,11 @@
         Feedback gerne mir schreiben oder als Post mit #feedback<br><br>
 
         Einfach Account erstellen und ausprobieren.<br>
-        (Nicht wundern, nachdem ein Account erstellt wurde werdet ihr wieder auf die Startseite zurückgleitet, könnt euch aber trotzdem einloggen) <br><br>
-        (Email/Nutzername etc könnt ihr euch einfach was ausdenken)<br>
-        (auch einfach irgendwas posten, da es ja nur ein Prototyp ist werd ich das warsch eh alles wieder löschen)<br>
-        (nachdem ihr was gepostet habt, müsst ihr die Seite neuladen mait es erscheint)<br>
-        (was so die Idee dahinter ist könnt ihr unter "Values" lesen, aber dort keinerlei Anspruch auf Englisch oder Rechtschriebung;) )<br>
+        ** (Nicht wundern, nachdem ein Account erstellt wurde werdet ihr wieder auf die Startseite zurückgleitet, könnt euch aber trotzdem einloggen) <br><br>
+        ** (Email/Nutzername etc könnt ihr euch einfach was ausdenken)<br>
+        ** (auch einfach irgendwas posten, da es ja nur ein Prototyp ist werd ich das warsch eh alles wieder löschen)<br>
+        ** (nachdem ihr was gepostet habt, müsst ihr die Seite neuladen mait es erscheint)<br>
+        ** (was so die Idee dahinter ist könnt ihr unter "Values" lesen, aber dort keinerlei Anspruch auf Englisch oder Rechtschriebung;) )<br>
         danke :)<br><br><br><br>
         
         <p><a href="/contact">Contact</a></p>

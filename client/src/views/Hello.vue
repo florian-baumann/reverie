@@ -28,7 +28,7 @@
         ** (Email/Nutzername etc könnt ihr euch einfach was ausdenken)<br>
         ** (auch einfach irgendwas posten, da es ja nur ein Prototyp ist werd ich das warsch eh alles wieder löschen)<br>
         ** (nachdem ihr was gepostet habt, müsst ihr die Seite neuladen mait es erscheint)<br>
-        ** (was so die Idee dahinter ist könnt ihr unter "Values" lesen, aber dort keinerlei Anspruch auf Englisch oder Rechtschriebung;) )<br>
+        ** (was so die Idee dahinter ist könnt ihr unter "Values" lesen (->kurz: twitter/reddit für ideen), aber dort keinerlei Anspruch auf Englisch oder Rechtschriebung;) )<br>
         danke :)<br><br><br><br>
         
         <p><a href="/contact">Contact</a></p>

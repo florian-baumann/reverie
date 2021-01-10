@@ -6,9 +6,9 @@
           Contact: 
 
         </h1>
-        Mail: florian.bmnn2@gmail.com <br><br>
         
-        Feedback? please use #feedback <br><br>
+        
+        Feedback? please use #feedback (oder mir einfach schreiben)<br><br>
 
         Want to contribute? -> <a href="https://github.com/florian-baumann/donno">Github</a>
 

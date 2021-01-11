@@ -22,17 +22,24 @@ module.exports = function(req, res, next) {
     current_datetime.getMinutes() +
     ":" +
     current_datetime.getSeconds();
+
   let method = req.method;
   let url = req.url;
   let status = res.statusCode;
+
   const start = process.hrtime();
   const durationInMilliseconds = getActualRequestDurationInMilliseconds(start);
+
+  
   let log = `[${formatted_date}] ${method}:${url} ${status} ${durationInMilliseconds.toLocaleString()} ms`;
+
   console.log(log);
+
   fs.appendFile("logs.txt", log + "\n", err => {
     if (err) {
       console.log(err);
     }
   });
+
   next();
   };

@@ -2,6 +2,7 @@
   <v-app>
     
     <NavDrawer v-bind:drawer="this.drawer"> </NavDrawer>
+    
 
     <v-app-bar
       app
@@ -54,35 +55,42 @@
         </v-btn>
       </template>
 
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" color="#F3F348"></v-app-bar-nav-icon>
+      <div v-if= user >
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" color="#F3F348"></v-app-bar-nav-icon>
+      </div>
 
     </v-app-bar>
 
-    <v-content>
-      <router-view></router-view> <!-- Content -->   
 
-      
+
+    <!-- ----------------------------------------------------------------Content of router---------------------------------------------------------------------- -->
+    <v-content style="background-color:#c7c1a6">
+      <router-view></router-view> <!-- Content -->   
     </v-content> 
+    <!-- ----------------------------------------------------------------Content of router---------------------------------------------------------------------- -->
+
 
     <!-- new Idea Button-->
-    <v-dialog v-model="dialog" persistent max-width="600px">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          fab
-          color="#F3F348"
-          bottom
-          right
-          fixed
-          v-bind="attrs"
-          v-on="on"
-          @click="dialog = !dialog"
-        >
-          <v-icon>mdi-plus</v-icon>
-        </v-btn> 
-      </template>
+    <div v-if= user >
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            fab
+            color="#F3F348"
+            bottom
+            right
+            fixed
+            v-bind="attrs"
+            v-on="on"
+            @click="dialog = !dialog"
+          >
+            <v-icon>mdi-plus</v-icon>
+          </v-btn> 
+        </template>
 
-      <NewIdeaDialog @close="changedialog"></NewIdeaDialog>
-    </v-dialog>
+        <NewIdeaDialog @close="changedialog"></NewIdeaDialog>
+      </v-dialog>
+    </div>
       
             
    
@@ -126,6 +134,7 @@ export default {
   #signup_btn {
     color: #45443e
   };
+
 
   
 </style>

@@ -6,11 +6,14 @@ const logger = require("./middlewares/logger.js");
 
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:8080"
-};
+// var corsOptions = {
+//   origin: "http://localhost:80"
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.use(cors());
+
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -42,10 +45,12 @@ db.mongoose
 //Logger Middleware ohne xxxx.routes.js
 app.use(logger);
 
+
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to my server. bitch" });
+  res.json({ message: "server online"});
 });
+
 
 // routes
 require("./routes/auth.routes")(app);
@@ -55,7 +60,7 @@ require("./routes/comment.routes")(app);
 
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
@@ -97,3 +102,15 @@ function initial() {
     }
   });
 }
+
+// // Find 404
+// app.use((req, res, next) => {
+//   next(createError(404));
+// });
+
+// // error handler
+// app.use(function (err, req, res, next) {
+//   console.error(err.message);
+//   if (!err.statusCode) err.statusCode = 500;
+//   res.status(err.statusCode).send(err.message);
+// });

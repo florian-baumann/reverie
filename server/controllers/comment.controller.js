@@ -35,7 +35,7 @@ exports.createComment = async (req, res) => {
                 }
             )
             .then(doc => {
-                console.log(doc);
+                console.log(docComment);         //gives idea
                 res.status(200).send(docComment);
             })
             .catch(err => {
@@ -49,73 +49,51 @@ exports.createComment = async (req, res) => {
 
 //Upvote
 exports.upvote = (req, res) => {
-    console.log("comment upvote");
+    console.log(">>comment upvote");
 
-    var newupvotes;
-    
-    Comment.findById(req.params.commentId, function(err, docs) {
-        if(err) {
-            console.log(err);
-        } else {
-            newupvotes = docs.upvotes + 1;
-
-            Comment.findByIdAndUpdate(
-                req.params.commentId,
-                {
-                    $set: {upvotes: newupvotes},
-                    $push: {userUpvotes: req.userId}      //TODO provides no uniquness!!
-                },
-                {
-                    new: true,                       // return updated doc
-                    runValidators: true              // validate before update
-                }
-            )
-            .then(doc => {
-                console.log(doc);
-                res.status(200).send(Comment);
-            })
-            .catch(err => {
-                console.error(err);
-                res.status(500).send(err);
-            });
+    Comment.findByIdAndUpdate(
+        req.params.commentId,
+        {
+            $addToSet: {userUpvotes: req.userId}
+        },
+        {
+            new: true,                       // return updated doc
+            runValidators: true              // validate before update
         }
+    )
+    .then(doc => {
+        console.log("   >>upvoted Comment: " + req.params.commentId);
+        res.status(200).send(">>upvoted Comment: " + req.params.commentId);
     })
+    .catch(err => {
+        console.error(err);
+        res.status(500).send(err);
+    }); 
 };
 
 
 //Downvote
 exports.downvote = (req, res) => {
-    console.log("comment downvote");
+    console.log(">>comment downvote");
 
-    var newdownvotes;
-    
-    Comment.findById(req.params.commentId, function(err, docs) {
-        if(err) {
-            console.log(err);
-        } else {
-            newdownvotes = docs.downvotes - 1;
-
-            Comment.findByIdAndUpdate(
-                req.params.commentId,
-                {
-                    $set: {downvotes: newdownvotes},
-                    $push: {userDownvotes: req.userId}      //TODO provides no uniquness!!
-                },
-                {
-                    new: true,                       // return updated doc
-                    runValidators: true              // validate before update
-                }
-            )
-            .then(doc => {
-                console.log(doc);
-                res.status(200).send(Comment);
-            })
-            .catch(err => {
-                console.error(err);
-                res.status(500).send(err);
-            });
+    Comment.findByIdAndUpdate(
+        req.params.commentId,
+        {
+            $addToSet: {userDownvotes: req.userId}
+        },
+        {
+            new: true,                       // return updated doc
+            runValidators: true              // validate before update
         }
+    )
+    .then(doc => {
+        console.log("   >>downvoted Comment: " + req.params.commentId);
+        res.status(200).send(">>downvoted Comment: " + req.params.commentId);
     })
+    .catch(err => {
+        console.error(err);
+        res.status(500).send(err);
+    });
 };
 
 

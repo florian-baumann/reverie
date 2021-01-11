@@ -31,7 +31,7 @@
 
                 <!--  Upvote Button -->
                 <div v-if="!isUpvoted && !isDownvoted">
-                    <v-btn v-on:click="upvote(idea._id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
+                    <v-btn v-on:click="upvote(idea.id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
                 </div>
                 <div v-if="isDownvoted"><!-- only disabled the function call-->
                     <v-btn icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
@@ -39,12 +39,14 @@
                 <div v-if="isUpvoted">
                     <v-btn icon> <v-icon>mdi-arrow-up-drop-circle</v-icon> </v-btn>
                 </div>
-                    {{this.idea.upvotes + this.idea.downvotes}} 
+
+
+                {{this.idea.userUpvotes.length - this.idea.userDownvotes.length}} <!-- summary votes -->
 
 
                 <!--  Downvote Button -->
                 <div v-if="!isUpvoted && !isDownvoted ">
-                    <v-btn v-on:click="downvote(idea._id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
+                    <v-btn v-on:click="downvote(idea.id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
                 </div>
                 <div v-if="isUpvoted"><!-- only disabled the function call-->
                     <v-btn icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
@@ -105,14 +107,14 @@
 
                 <!-- delete button -->
                 <div v-if="isAuthor">
-                    <v-btn v-on:click="delt(idea._id)" icon> <v-icon>mdi-delete</v-icon> </v-btn>
+                    <v-btn v-on:click="delt(idea.id)" icon> <v-icon>mdi-delete</v-icon> </v-btn>
                 </div>
                 
             </v-card-actions>
         </v-card>
 
 
-        <div v-for="comment in this.idea.comments" :key="comment._id"> 
+        <div v-for="comment in this.idea.comments" :key="comment.id"> 
             <CommentFullSize v-bind:comment="comment"></CommentFullSize>
         </div>
             
@@ -141,31 +143,33 @@ export default {
     },
     methods:{
         upvote(postid){
-            axios.put("//localhost:8081/idea/" + postid + "/upvote")
+            axios.put(process.env.VUE_APP_API_URL + "/idea/" + postid + "/upvote")
                 .then(({ res }) => {
                     console.log(res);
                 },
                 (error) => {
                     console.log(error);
                 });
-                //update der lokalen idea instanz! nicht dr server version!
-                this.idea.upvotes += 1;
-                this.isUpvoted = true;
-            },
+            //update der lokalen idea instanz! nicht dr server version!
+            //this.upvotes += 1;
+            this.idea.userUpvotes.push("locally");
+            this.isUpvoted = true;
+        },
         downvote(postid){
-            axios.put("//localhost:8081/idea/" + postid + "/downvote")
+            axios.put(process.env.VUE_APP_API_URL + "/idea/" + postid + "/downvote")
                 .then(({ res }) => {
                     console.log(res);
                 },
                 (error) => {
                     console.log(error);
             });
-            //update der lokalen idea instanz! nicht dr server version!
-            this.idea.downvotes -= 1;
-            this.isDownvoted = true;
+        //update der lokalen idea instanz! nicht dr server version!
+        //this.downvotes -= 1;
+        this.idea.userDownsvotes.push("locally")
+        this.isDownvoted = true;
         },
         delt(postid) {
-            axios.delete("//localhost:8081/idea/" + postid + "/delete")
+            axios.delete(process.env.VUE_APP_API_URL + "/idea/" + postid + "/delete")
                 .then(({ res }) => {
                     console.log(res);
                 },
@@ -181,18 +185,18 @@ export default {
 
             const json = JSON.stringify({ newComment });
 
-            axios.post("//localhost:8081/comment/" + this.idea._id + "/new", json, {
+            axios.post(process.env.VUE_APP_API_URL + "/comment/" + this.idea.id + "/new", json, {
                 headers: {
                 // Overwrite Axios's automatically set Content-Type
                 'content-Type': 'application/json'
                 }
             })
-                .them(({res}) => {
-                    console.log(res);
-                },
-                (err) => {
-                    console.log(err);
-                });
+            .then(({res}) => {
+                console.log(res);
+            },
+            (err) => {
+                console.log(err);
+            });
         }
         
     },
@@ -201,12 +205,20 @@ export default {
             return this.$store.state.user;
         },
         isAuthor() {
-             if(this.user._id === this.idea.author._id) {
+             if(this.user.id === this.idea.author._id) {
                 return true;
             } else {
                 return false;
             }
-        }
+        },
+        // upvotes() {
+        //     return this.idea.userUpvotes.length
+            
+        // },
+        // downvotes() {
+        //     return this.idea.userDownvotes.length
+        // }
+
     }
     
 }

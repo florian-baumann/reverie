@@ -6,6 +6,7 @@ import Home from "../views/Home.vue"
 import Values from "../views/Values.vue"
 import Idea from "../views/Idea.vue"
 import My from "../views/My.vue"
+import Contact from "../views/Contact.vue"
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ Vue.use(VueRouter)
     path: "/values",
     name: "Values",
     component: Values
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: Contact
   },
   {
     path: "/idea/:id",

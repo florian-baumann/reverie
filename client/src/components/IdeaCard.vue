@@ -26,7 +26,7 @@
 
       <!--  Upvote Button -->
       <div v-if="!isUpvoted && !isDownvoted">
-        <v-btn v-on:click="upvote(idea._id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
+        <v-btn v-on:click="upvote(idea.id)" icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
       </div>
       <div v-if="isDownvoted"><!-- only disabled the function call-->
         <v-btn icon> <v-icon>mdi-menu-up</v-icon> </v-btn>
@@ -34,12 +34,14 @@
       <div v-if="isUpvoted">
         <v-btn icon> <v-icon>mdi-arrow-up-drop-circle</v-icon> </v-btn>
       </div>
-        {{this.idea.upvotes + this.idea.downvotes}} 
+
+
+      {{this.idea.userUpvotes.length - this.idea.userDownvotes.length}} <!-- summary votes -->
 
 
       <!--  Downvote Button -->
       <div v-if="!isUpvoted && !isDownvoted ">
-        <v-btn v-on:click="downvote(idea._id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
+        <v-btn v-on:click="downvote(idea.id)" icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
       </div>
       <div v-if="isUpvoted"><!-- only disabled the function call-->
         <v-btn icon> <v-icon>mdi-menu-down</v-icon> </v-btn>
@@ -50,7 +52,7 @@
 
 
       <!-- comment Button -->
-      <v-btn icon :to="{name: 'Idea', params: {id: idea._id}}">
+      <v-btn icon :to="{name: 'Idea', params: {id: idea.id}}">
         <v-badge :content="idea.comments.length" color="#45443E" overlap dark>
           <v-icon>mdi-comment-outline</v-icon>
         </v-badge>
@@ -61,7 +63,7 @@
       <v-btn
         text
         color="#FFFFFF"
-        :to="{name: 'Idea', params: {id: idea._id}}"
+        :to="{name: 'Idea', params: {id: idea.id}}"
       >
         Read More
       </v-btn>
@@ -88,7 +90,7 @@ export default {
     },
     methods:{
       upvote(postId){
-        axios.put("//localhost:8081/idea/" + postId + "/upvote")
+        axios.put(process.env.VUE_APP_API_URL + "/idea/" + postId + "/upvote")
           .then(({ res }) => {
             console.log(res);
           },
@@ -96,11 +98,12 @@ export default {
             console.log(error);
         });
         //update der lokalen idea instanz! nicht dr server version!
-        this.idea.upvotes += 1;
+        //this.upvotes += 1;
+        this.idea.userUpvotes.push("locally");
         this.isUpvoted = true;
         },
       downvote(postId){
-        axios.put("//localhost:8081/idea/" + postId + "/downvote")
+        axios.put(process.env.VUE_APP_API_URL + "/idea/" + postId + "/downvote")
           .then(({ res }) => {
             console.log(res);
           },
@@ -108,10 +111,20 @@ export default {
             console.log(error);
         });
       //update der lokalen idea instanz! nicht dr server version!
-      this.idea.downvotes -= 1;
+      //this.downvotes -= 1;
+      this.idea.userDownvotes.push("locally");
       this.isDownvoted = true;
       }
     },
+    // computed: {
+    //   // upvotes() {
+    //   //       return this.idea.userUpvotes.length
+            
+    //   //   },
+    //   //   downvotes() {
+    //   //       return this.idea.userDownvotes.length
+    //   //   }
+    // }
     
     
 }

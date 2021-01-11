@@ -36,16 +36,30 @@ module.exports = function(app) {
     controller.feed
     );
 
-    //giving back all ideas of username
-    app.get("/idea/user/:username",
+    //giving back feed with pagnation (all existing Ideas)
+    app.get("/idea/feedpag",
     [authJwt.verifyToken],
-    controller.allIdeasbyUsername
+    controller.feedpag
+    );
+
+    //giving back all ideas of username
+    // app.get("/idea/user/:username",
+    // [authJwt.verifyToken],
+    // controller.allIdeasbyUsername
+    // );
+
+    //giving back all ideas of username
+    app.get("/idea/user/me/",
+    [authJwt.verifyToken],
+    controller.allIdeasbyUser
     );
 
     //giving back one specific idea from id
-    app.get("/idea/:ideaId",
+    app.get("/idea/id/:ideaId/",
     [authJwt.verifyToken],
     controller.ideaById
     );
+
+
 
 }

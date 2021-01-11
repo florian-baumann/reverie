@@ -8,70 +8,48 @@ exports.upvote = (req, res) => {
 
     console.log(">>idea upvotes");
 
-    var newupvotes;
-    
-    Idea.findById(req.params.ideaId, function(err, docs) {
-        if(err) {
-            console.log(err);
-        } else {
-            newupvotes = docs.upvotes + 1;
-
-            Idea.findByIdAndUpdate(
-                req.params.ideaId,
-                {
-                    $set: {upvotes: newupvotes},
-                    $addToSet: {userUpvotes: req.userId}
-                },
-                {
-                    new: true,                       // return updated doc
-                    runValidators: true              // validate before update
-                }
-            )
-            .then(doc => {
-                console.log(">>upvoted: " + req.params.ideaId);
-                res.status(200).send(">>upvoted: " + req.params.ideaId);
-            })
-            .catch(err => {
-                console.error(err);
-                res.status(500).send(err);
-            });
+    Idea.findByIdAndUpdate(
+        req.params.ideaId,
+        {
+            $addToSet: {userUpvotes: req.userId}
+        },
+        {
+            new: true,                       // return updated doc
+            runValidators: true              // validate before update
         }
+    )
+    .then(doc => {
+        console.log("   >>upvoted Idea: " + req.params.ideaId);
+        res.status(200).send(">>upvoted Idea: " + req.params.ideaId);
     })
+    .catch(err => {
+        console.error(err);
+        res.status(500).send(err);
+    });
 };
 
 //Downvote
 exports.downvote = (req, res) => {
     console.log(">>idea downvote");
 
-    var newdownvotes;
-    
-    Idea.findById(req.params.ideaId, function(err, docs) {
-        if(err) {
-            console.log(err);
-        } else {
-            newdownvotes = docs.downvotes - 1;
-
-            Idea.findByIdAndUpdate(
-                req.params.ideaId,
-                {
-                    $set: {downvotes: newdownvotes},
-                    $push: {userDownvotes: req.userId}      //TODO provides no uniquness!!
-                },
-                {
-                    new: true,                       // return updated doc
-                    runValidators: true              // validate before update
-                }
-            )
-            .then(doc => {
-                console.log(">>downvoted: " + req.params.ideaId);
-                res.status(200).send(">>downvoted: " + req.params.ideaId);
-            })
-            .catch(err => {
-                console.error(err);
-                res.status(500).send(err);
-            });
+    Idea.findByIdAndUpdate(
+        req.params.ideaId,
+        {
+            $addToSet: {userDownvotes: req.userId}      
+        },
+        {
+            new: true,                       // return updated doc
+            runValidators: true              // validate before update
         }
+    )
+    .then(doc => {
+        console.log("   >>downvoted Idea: " + req.params.ideaId);
+        res.status(200).send(">>downvoted Idea: " + req.params.ideaId);
     })
+    .catch(err => {
+        console.error(err);
+        res.status(500).send(err);
+    });
 };
 
 
@@ -81,9 +59,9 @@ exports.downvote = (req, res) => {
 exports.create = (req, res) => {
     let New = req.body.newIdea;
 
-    console.log(req.userId);
+    console.log("User: " + req.userId + "will create: " + New);
    
-    const newIdea = new Idea({
+    const idea = new Idea({
         "author": req.userId,
         "tags": New.tags,
         "head": New.head,
@@ -93,14 +71,24 @@ exports.create = (req, res) => {
         "comments": []
     });
 
-    newIdea.save(err => {
-        if (err) {
-            return res.status(500).send({ message: err });
-        } else {
-            console.log(newIdea);
-            return res.status(200).send(newIdea);
-        }  
-    });
+    idea.save(idea)
+    .then((data) => {
+        console.log("User: " + req.userId + " created an idea");
+        res.status(200).send(idea);
+    })
+    .catch((err) => {
+        res.status(500).send(err);
+    })
+        
+        
+    //     err => {
+    //     if (err) {
+    //         return res.status(500).send({ message: err });
+    //     } else {
+    //         console.log(newIdea);
+    //         return res.status(200).send(idea);
+    //     }  
+    // });
 }
 
 //Delete
@@ -118,6 +106,7 @@ exports.delete = (req, res) => {
 }
 
 //giving back feed (all existing Ideas)
+//--> old -> new : feedpag!
 exports.feed = (req, res) => {
     Idea.find((err, idea) => {
         if (err) {
@@ -127,46 +116,84 @@ exports.feed = (req, res) => {
           return res.status(200).send(idea)
         }
       })
-      .populate("author");
+      .populate("author", "username");
 };
   
 
- //giving back all ideas of username
-exports.allIdeasbyUsername = (req, res) => {
+//giving back all ideas of username
+// exports.allIdeasbyUsername = (req, res) => {
+
+//     console.log("ideas by username: " + req.params.username);
+
+//     Idea.find(
+//         {username: req.param.username}, (err, ideas) => {
+//             if (err) {
+//                  res.status(500).send(err);
+//             } else {
+//                  res.status(200).send(ideas)
+//             }
+//     })
+//     .populate("author", "username");
+// };
+
+//giving back all ideas of username
+exports.allIdeasbyUser = (req, res) => {
 
     console.log("ideas by username: " + req.params.username);
 
     Idea.find(
-        {username: req.param.username}, (err, ideas) => {
+        {author: req.userId}, (err, ideas) => {
             if (err) {
                  res.status(500).send(err);
             } else {
                  res.status(200).send(ideas)
             }
     })
-    .populate("author");
-    
+    .populate("author", "username");
 };
 
 
 //sends one idea with comments from mongodb with id
 exports.ideaById = (req, res) => {
-        // Idea
-        //     .findById(req.params.ideaId)
-        //     .populate("comments")
-        //     .then (temp => {
-        //         res.json(temp);
-        //     })
 
-        Idea.findById(req.params.ideaId, (err, curr) => {
-            if(err) {
-              return res.status(500).send(err);
-            } else {
-              //console.log(curr);
-              return res.status(200).send(curr);
-            }
-        })
-        .populate("comments")
-        .populate("author");
-        
+    console.log(">> idea by id: " + req.params.ideaId);
+
+    Idea.findById(req.params.ideaId, (err, idea) => {
+        if(err) {
+            return res.status(500).send(err);
+        } else {
+            //console.log(idea);
+            return res.status(200).send(idea);
+        }
+    })
+    .populate("comments") 
+    .populate("author", "username")
+};
+
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+const getPagination = (page, size) => {
+    const limit = size ? +size : 3;
+    const offset = page ? page * limit : 0;
+  
+    return { limit, offset };
+};
+  
+// Retrieve all Tutorials from the database.
+exports.feedpag = (req, res) => {
+    const { page, size } = req.query;
+    console.log(req.query)
+    const { limit, offset } = getPagination(page, size);
+  
+    Idea.paginate({}, { offset, limit })            //condition in {] if needed
+      .then((data) => {
+        res.send({data});
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials.",
+        });
+      });
 };

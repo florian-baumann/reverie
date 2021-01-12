@@ -46,7 +46,7 @@ db.mongoose
 app.use(logger);
 
 
-// simple route
+// simple status route
 app.get("/", (req, res) => {
   res.json({ message: "server online"});
 });
@@ -55,6 +55,7 @@ app.get("/", (req, res) => {
 // routes
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
+require("./routes/feed.routes")(app);
 require("./routes/idea.routes")(app);
 require("./routes/comment.routes")(app);
 

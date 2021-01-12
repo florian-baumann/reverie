@@ -30,17 +30,7 @@ module.exports = function(app) {
     );
 
 
-    //giving back feed (all existing Ideas)
-    app.get("/idea/feed",
-    [authJwt.verifyToken],
-    controller.feed
-    );
 
-    //giving back feed with pagnation (all existing Ideas)
-    app.get("/idea/feedpag",
-    [authJwt.verifyToken],
-    controller.feedpag
-    );
 
     //giving back all ideas of username
     // app.get("/idea/user/:username",

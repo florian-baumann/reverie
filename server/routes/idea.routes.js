@@ -5,6 +5,14 @@ const controller = require("../controllers/idea.controller");
 
 module.exports = function(app) {
 
+    app.use(function(req, res, next) {
+        res.header(
+          "Access-Control-Allow-Headers",
+          "x-access-token, Origin, Content-Type, Accept"
+        );
+        next();
+    });
+
     //upvote
     app.put("/idea/:ideaId/upvote",
     [authJwt.verifyToken],

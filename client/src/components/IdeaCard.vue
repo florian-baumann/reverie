@@ -11,13 +11,13 @@
       <div v-for="tag in idea.tags" :key="tag.i"> #{{tag}} </div>
 
       <!-- Idea Head -->
-      <p class="display-1 text--primary" >  {{ idea.head }} </p>
+      <p class="display-1 text--primary" >  {{ short_head }} </p>
 
       <!--  Creator Name  -->
       <p>{{idea.author.username}}</p>
 
       <!-- Idea Discription -->
-      <div class="text--primary" >  {{idea.description}} </div>
+      <div class="text--primary" >  {{ short_description }} </div>
 
     </v-card-text>
 
@@ -81,6 +81,8 @@ export default {
         type: Object,
         default: () => ({})
       }
+     
+
     },
     data (){
       return{
@@ -114,17 +116,28 @@ export default {
       //this.downvotes -= 1;
       this.idea.userDownvotes.push("locally");
       this.isDownvoted = true;
-      }
+      },
+
+      
     },
-    // computed: {
-    //   // upvotes() {
-    //   //       return this.idea.userUpvotes.length
-            
-    //   //   },
-    //   //   downvotes() {
-    //   //       return this.idea.userDownvotes.length
-    //   //   }
-    // }
+  computed: {
+    short_head: function() {
+      if(this.idea.head.length > 42) {
+        return this.idea.head.substr(0, 42) + "..."
+      } else {
+        return this.idea.head;
+      }
+      
+    },
+    short_description: function() {
+      if(this.idea.description.length> 200) {
+        return this.idea.description.substr(0, 200) + "..."
+      } else {
+        return this.idea.description;
+      }
+      
+    }
+  }
     
     
 }

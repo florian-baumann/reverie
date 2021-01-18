@@ -43,22 +43,33 @@ const getPagination = (page, size) => {
 //       });
 // };
 
-// Retrieve all Tutorials from the database:   new ... old
+
+
+
 exports.feedpag_new = (req, res) => {
-    const { page, size } = req.query;
-    console.log(req.query)
-    const { limit, offset } = getPagination(page, size);
-   
-  
-    Idea.paginate({}, { offset, limit, sort:{createdAt: -1} })            //condition in {] if needed
-      .then((data) => {
-        
-        res.send({data});
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials.",
-        });
-      });
+  const { page, size } = req.query;
+  console.log(req.query)
+  const { limit, offset } = getPagination(page, size);
+
+  var options = {
+    offset,
+    limit,
+    sort: {createdAt: -1},
+    populate: [{path:"author", select: "username"}, {path: "userDownvotes", select: "username"}, {path: "userUpvotes", select: "username"}]
+  };
+ 
+
+  Idea.paginate({}, options )  
+  .then((data) => {
+      
+    res.send({data});
+  })
+  .catch((err) => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving ideas feed.",
+    });
+  })
 };
+
+

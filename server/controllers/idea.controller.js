@@ -155,7 +155,9 @@ exports.ideaById = (req, res) => {
         }
     })
     .populate("comments") 
+    .populate({path:"comments", populate: {path:"author", select: "username"} })
     .populate("author", "username")
+    
 };
 
 

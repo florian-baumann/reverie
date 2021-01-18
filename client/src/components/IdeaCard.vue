@@ -14,7 +14,7 @@
       <p class="display-1 text--primary" >  {{ short_head }} </p>
 
       <!--  Creator Name  -->
-      <p>{{idea.author.username}}</p>
+      <p>@{{idea.author.username}}</p>    
 
       <!-- Idea Discription -->
       <div class="text--primary" >  {{ short_description }} </div>
@@ -88,7 +88,7 @@ export default {
       return{
         isUpvoted: false,
         isDownvoted: false,
-      };
+      }
     },
     methods:{
       upvote(postId){
@@ -118,6 +118,7 @@ export default {
       this.isDownvoted = true;
       },
 
+
       
     },
   computed: {
@@ -135,10 +136,26 @@ export default {
       } else {
         return this.idea.description;
       }
-      
+    }, 
+  },
+
+  mounted() {    
+    if(this.idea.userDownvotes.length > 0) {
+      for(var i = 0; i < this.idea.userDownvotes.length; i++) {
+        if(this.idea.userDownvotes[i].username == this.$store.state.user.username ) {
+          this.isDownvoted = true;
+        }
+      }
     }
+    if(this.idea.userUpvotes.length > 0) {
+      for(var x = 0; x < this.idea.userUpvotes.length; x++) {
+        if(this.idea.userUpvotes[x].username == this.$store.state.user.username ) {
+          this.isUpvoted = true;
+        }
+      }
+    }   
   }
-    
+     
     
 }
 </script>

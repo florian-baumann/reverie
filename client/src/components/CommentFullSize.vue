@@ -11,7 +11,7 @@
             
             <v-card-text >
                 <!--  Creator Name  -->
-                <p>{{comment.author}}</p>
+                <p>@{{comment.author.username}}</p>
 
                 <!-- Comment-->
                 <div class="text--primary" >  {{comment.comment}} </div>

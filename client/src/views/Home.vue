@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper"> 
 
+    
 
     <template v-if="ideas !== 'Loading ideas...'">
       <IdeaCard v-for="idea in ideas" :key="idea.id" :idea="idea" />
@@ -17,9 +18,17 @@
             @input="handlePageChange"
             
             color="#605C4A"
-          ></v-pagination> 
+    ></v-pagination> 
+
+  
+  
+  
+  
+  
   </div>
 </template>
+
+
 
 <script>
 import axios from "axios";
@@ -29,7 +38,8 @@ import IdeaCard from "../components/IdeaCard.vue";
 export default {
   name: "Home",
   components: {
-    IdeaCard
+    IdeaCard,
+    
   },
 
   data () {

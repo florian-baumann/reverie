@@ -1,20 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Hello from '../views/Hello.vue'
 import Auth from "../views/Auth.vue"
 import Home from "../views/Home.vue"
 import Values from "../views/Values.vue"
 import Idea from "../views/Idea.vue"
 import My from "../views/My.vue"
 import Contact from "../views/Contact.vue"
+import FrontPage from "../views/FrontPage.vue"
+
+import NavBar from "../views/NavBar.vue"
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: "Hello",
-    component: Hello
+    name: "FrontPage",
+    component: FrontPage
   },
   {
     path: "/auth",
@@ -23,28 +25,58 @@ Vue.use(VueRouter)
   },
   {
     path: "/home",
-    name: "Home",
-    component: Home
+    component: NavBar,
+    children: [
+      {
+        path: '',
+        component: Home,
+        name: "Home"
+      },
+    ]
   },
   {
     path: "/values",
-    name: "Values",
-    component: Values
+    component: NavBar,
+    children: [
+      {
+        path: '',
+        component: Values,
+        name: "Values"
+      },
+    ]
   },
   {
     path: "/contact",
-    name: "Contact",
-    component: Contact
+    component: NavBar,
+    children: [
+      {
+        path: '',
+        component: Contact,
+        name: "Contact"
+      },
+    ]
   },
   {
     path: "/idea/:id",
-    name: "Idea",
-    component: Idea
+    component: NavBar,
+    children: [
+      {
+        path: '',
+        component: Idea,
+        name: "Idea"
+      },
+    ]
   },
   {
     path: "/my",
-    name: "My",
-    component: My
+    component: NavBar,
+    children: [
+      {
+        path: '',
+        component: My,
+        name: "My"
+      },
+    ]
   }
 
 ]

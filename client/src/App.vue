@@ -1,17 +1,19 @@
 <template>
-  <div id="app" class="wrapper" style="background-color:green">
-    <NavBar></Navbar>
+  <div id="app" class="wrapper">
+    
+    <!--<NavBar></Navbar> -->
+    <router-view></router-view>
     
   </div>
 </template>
 
 <script>
-import NavBar from "./views/NavBar.vue"
+//import NavBar from "./views/NavBar.vue"
 
 export default {
   name: 'app',
   components:{
-    NavBar,
+    //NavBar,
   }
 }
 
@@ -19,7 +21,7 @@ export default {
 </script>
 
 <style>
- #app {
+   #app {
    background-color: #c7c1a6;
  }
 </style>

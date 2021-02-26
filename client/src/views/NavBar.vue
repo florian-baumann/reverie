@@ -64,9 +64,9 @@
 
 
     <!-- ----------------------------------------------------------------Content of router---------------------------------------------------------------------- -->
-    <v-content style="background-color:#c7c1a6">
-      <router-view></router-view> <!-- Content -->   
-    </v-content> 
+    <v-main style="background-color:#c7c1a6">
+      <router-view></router-view>  <!-- Content -->   
+    </v-main> 
     <!-- ----------------------------------------------------------------Content of router---------------------------------------------------------------------- -->
 
 

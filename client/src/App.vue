@@ -21,7 +21,4 @@ export default {
 </script>
 
 <style>
-   #app {
-   background-color: #c7c1a6;
- }
 </style>

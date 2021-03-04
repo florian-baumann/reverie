@@ -8,7 +8,9 @@
     
     <v-card-text >
       <!-- Idea Hashtags -->
-      <div v-for="tag in idea.tags" :key="tag.i"> #{{tag}} </div>
+      <div v-for="tag in idea.tags" :key="tag.i">
+        <router-link class="hashtag" :to="'/tag/'+tag "> #{{tag}} </router-link> 
+      </div>
 
       <!-- Idea Head -->
       <p class="display-1 text--primary" >  {{ short_head }} </p>
@@ -161,5 +163,10 @@ export default {
 </script>
 
 <style scoped>
+
+.hashtag {
+  color: #F3F348;
+  text-decoration: none;
+}
 
 </style>

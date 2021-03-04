@@ -7,6 +7,7 @@ import Idea from "../views/Idea.vue"
 import My from "../views/My.vue"
 import Contact from "../views/Contact.vue"
 import FrontPage from "../views/FrontPage.vue"
+import Hashtag from "../views/Hashtag.vue"
 
 import NavBar from "../views/NavBar.vue"
 
@@ -75,6 +76,17 @@ Vue.use(VueRouter)
         path: '',
         component: My,
         name: "My"
+      },
+    ]
+  },
+  {
+    path: "/tag/:hashtag",
+    component: NavBar,
+    children: [
+      {
+        path: '',
+        component: Hashtag,
+        name: "Hashtag"
       },
     ]
   }

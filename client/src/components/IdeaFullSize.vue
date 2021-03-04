@@ -12,7 +12,9 @@
             <v-card-text >
                 <!-- Idea Hashtags -- v-if to avoid error-->
                 <div v-if="idea.tags"> 
-                    <div v-for="tag in idea.tags" :key="tag.i"> #{{tag}} </div>
+                    <div v-for="tag in idea.tags" :key="tag.i" > 
+                        <router-link class="hashtag" :to="'/tag/'+tag "> #{{tag}} </router-link> 
+                    </div>
                 </div>
 
                 <!-- Idea Head -->
@@ -225,5 +227,10 @@ export default {
 </script>
 
 <style scoped>
+
+.hashtag {
+  color: #F3F348;
+  text-decoration: none;
+}
 
 </style>

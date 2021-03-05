@@ -16,7 +16,8 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: "FrontPage",
-    component: FrontPage
+    component: FrontPage,
+    
   },
   {
     path: "/auth",
